@@ -1,14 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CRICKET YODDHA</title>
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Global Styles */
+    /* Basic Reset */
     html, body {
       margin: 0;
       padding: 0;
@@ -21,140 +21,110 @@
     /* Header */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 70px;
-      background: rgba(10, 10, 10, 0.85);
-      backdrop-filter: blur(5px);
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 9999;
     }
 
-    header img {
-      height: 65%;
-      filter: drop-shadow(0 0 8px rgba(29, 185, 84, 0.3));
-    }
+    header img { height: 60%; }
 
-    /* Video Section */
+    /* Video Player */
     .video-container {
       width: 100vw;
       aspect-ratio: 16/9;
       background: #000;
       margin-top: 70px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
     }
 
     .video-container iframe {
       width: 100%;
       height: 100%;
       border: none;
-      display: block;
     }
 
-    /* Ad Section - Proper Centering */
-    .ad-section {
-      padding: 20px 10px;
+    /* PROPER AD BANNER SECTION */
+    .ad-wrapper {
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 15px 0;
       background: #000;
+      overflow: hidden; /* Prevent horizontal scroll */
     }
 
-    .ad-container {
+    /* Isse banner mobile par cutega nahi */
+    .ad-content {
       max-width: 100%;
-      overflow: hidden;
-      border-radius: 8px;
+      text-align: center;
     }
 
     /* Content Cards */
-    .content-area {
-      background: #000;
-      padding: 0 20px 40px 20px;
-    }
+    .main-content { padding: 15px; }
 
     .card {
-      background: #1a1a1a;
+      background: #161616;
+      border-radius: 15px;
       padding: 20px;
-      border-radius: 20px;
       margin-bottom: 20px;
-    }
-
-    .card-title {
-      margin: 0 0 12px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #c9c9c9;
-    }
-
-    .action-btn {
-      display: block;
-      width: 100%;
-      border: none;
-      cursor: pointer;
-      background: linear-gradient(to right, #ff1a1a, #d60000);
-      padding: 15px;
       text-align: center;
-      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .btn {
+      display: block;
+      padding: 15px;
+      border-radius: 12px;
       text-decoration: none;
       color: #fff;
-      font-size: 17px;
       font-weight: 700;
-      box-shadow: 0 0 12px rgba(255,0,0,0.28);
-      transition: transform 0.2s;
+      font-size: 16px;
+      background: linear-gradient(135deg, #ff0000, #b30000);
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+      transition: 0.3s;
+      border: none;
+      width: 100%;
+      cursor: pointer;
     }
 
-    .action-btn:active {
-      transform: scale(0.98);
-    }
-
-    /* Popups & Sidebar */
-    .popup-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10002;
-    }
-
-    .popup-box {
-      width: 300px;
-      background: #14141e;
-      border: 1px solid rgba(0, 234, 255, 0.3);
-      border-radius: 20px;
-      padding: 2rem;
-      text-align: center;
-      position: relative;
-    }
-
+    /* Sidebar */
     .sidebar {
-      position: fixed; top: 0; left: -300px; width: 280px; height: 100%;
-      background: rgba(20, 20, 20, 0.95);
-      backdrop-filter: blur(10px);
-      z-index: 10001; transition: 0.4s;
-      padding-top: 80px;
+      position: fixed; top: 0; left: -280px; width: 260px; height: 100%;
+      background: #111; z-index: 10001; transition: 0.3s; padding-top: 80px;
     }
-
     .sidebar.open { left: 0; }
+    .sidebar a {
+      display: block; padding: 15px 25px; color: #fff; text-decoration: none;
+      border-bottom: 1px solid #222;
+    }
 
     .overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6); display: none; z-index: 10000;
+      background: rgba(0,0,0,0.7); display: none; z-index: 10000;
     }
-    
-    .menu-icon { position: absolute; left: 16px; color: #fff; font-size: 30px; cursor: pointer; }
+
+    .menu-btn { position: absolute; left: 20px; color: #fff; cursor: pointer; font-size: 30px; }
+
+    /* Mobile adjustments for Ad */
+    @media (max-width: 768px) {
+      .ad-content iframe {
+        transform: scale(0.8); /* Shrink ad slightly for small screens */
+        transform-origin: center top;
+      }
+      .ad-wrapper { height: auto; padding: 10px 0; }
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <span class="material-icons menu-icon" onclick="toggleSidebar()">menu</span>
+  <span class="material-icons menu-btn" onclick="toggleSidebar()">menu</span>
   <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="Logo">
 </header>
 
@@ -162,8 +132,8 @@
   <iframe src="https://cricketstan.github.io/channel-10" allowfullscreen allow="autoplay"></iframe>
 </div>
 
-<div class="ad-section">
-  <div class="ad-container">
+<div class="ad-wrapper">
+  <div class="ad-content">
     <script type="text/javascript">
       atOptions = {
         'key' : '13efb179005d71679640ac291f032628',
@@ -177,69 +147,43 @@
   </div>
 </div>
 
-<div class="content-area">
-  
+<div class="main-content">
   <div class="card">
-    <p class="card-title">📣 Follow us for more Updates</p>
-    <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="action-btn">
-      🚀 Join Telegram
-    </a>
+    <p style="color: #aaa; margin-bottom: 15px;">🚀 Join Telegram for Live Match Links</p>
+    <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="btn">JOIN TELEGRAM</a>
   </div>
 
   <div class="card">
-    <p class="card-title">🔗 Share Stream</p>
-    <button onclick="sharePageLink()" class="action-btn">
-      📤 Share This Page Link
-    </button>
-  </div>
-
-</div>
-
-<div id="sidebar" class="sidebar">
-  <div style="text-align:center; color:#fff; padding:20px; border-bottom:1px solid #333;">MENU</div>
-  <a href="https://t.me/+rwZKMV0-L8wyOTll" style="display:block; padding:15px; color:#fff; text-decoration:none;">Telegram</a>
-  <a href="#" onclick="showVisitorPopup()" style="display:block; padding:15px; color:#fff; text-decoration:none;">Total Visitors</a>
-</div>
-<div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
-
-<div id="visitorPopup" class="popup-overlay">
-  <div class="popup-box">
-    <h3 style="color:#00eaff">Visitors</h3>
-    <img src="https://visit-counter.vercel.app/counter.png?page=allrounder.com&s=40&c=00ff00&bg=00000000&no=10&ff=digi&tb=&ta=" alt="Counter">
-    <br><br>
-    <button onclick="closeVisitorPopup()" style="background:#333; color:#fff; border:none; padding:10px 20px; border-radius:10px;">Close</button>
+    <p style="color: #aaa; margin-bottom: 15px;">📤 Share with Friends</p>
+    <button onclick="shareLink()" class="btn">SHARE PAGE LINK</button>
   </div>
 </div>
+
+<div class="sidebar" id="sidebar">
+  <a href="https://t.me/+rwZKMV0-L8wyOTll">Telegram</a>
+  <a href="#">Contact</a>
+</div>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
 <script>
   function toggleSidebar() {
-    const sb = document.getElementById('sidebar');
-    const ov = document.getElementById('overlay');
-    sb.classList.toggle('open');
-    ov.style.display = sb.classList.contains('open') ? 'block' : 'none';
+    const s = document.getElementById('sidebar');
+    const o = document.getElementById('overlay');
+    if(s.classList.contains('open')) {
+      s.classList.remove('open');
+      o.style.display = 'none';
+    } else {
+      s.classList.add('open');
+      o.style.display = 'block';
+    }
   }
 
-  function showVisitorPopup() {
-    document.getElementById('visitorPopup').style.display = 'flex';
-    toggleSidebar();
-  }
-
-  function closeVisitorPopup() {
-    document.getElementById('visitorPopup').style.display = 'none';
-  }
-
-  async function sharePageLink() {
+  function shareLink() {
     if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'CRICKET YODDHA',
-          text: 'Watch Live Cricket Match here!',
-          url: window.location.href
-        });
-      } catch (err) { console.log(err); }
+      navigator.share({ title: 'Live Cricket', url: window.location.href });
     } else {
       navigator.clipboard.writeText(window.location.href);
-      alert('Link Copied to Clipboard!');
+      alert('Link Copied!');
     }
   }
 </script>
