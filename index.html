@@ -11,10 +11,10 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: #0a0a0a;
+      background: #000; 
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
-      color: #e0e0e0;
+      color: #fff;
     }
 
     /* Header Styling */
@@ -22,8 +22,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       height: 70px;
-      background: rgba(10, 10, 10, 0.95);
-      backdrop-filter: blur(10px);
+      background: #000;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -31,15 +30,21 @@
       z-index: 9999;
     }
 
-    header img { height: 55px; }
+    header img { height: 50px; }
 
-    /* Video Player Section */
+    .menu-icon {
+      position: absolute;
+      left: 15px;
+      font-size: 32px;
+      cursor: pointer;
+    }
+
+    /* Video Player Box */
     .video-container {
       width: 100vw;
       aspect-ratio: 16/9;
       background: #000;
       margin-top: 70px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
     .video-container iframe {
@@ -48,100 +53,96 @@
       border: none;
     }
 
-    /* --- PROPER AD BANNER BOX --- */
-    .ad-main-wrapper {
+    /* Banner Section - Using Your Ad Code */
+    .ad-wrapper {
       width: 100%;
-      padding: 15px 0;
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 10px 0;
       background: #000;
-      overflow: hidden; /* Ensure ad doesn't break layout */
     }
 
-    /* Is box ke andar ad center rahega */
-    .ad-slot-box {
+    .ad-container {
       max-width: 100%;
-      min-height: 90px;
-      display: flex;
-      justify-content: center;
-    }
-
-    /* Content Styling */
-    .content-section {
-      padding: 15px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .info-card {
-      background: #151515;
-      border-radius: 18px;
-      padding: 20px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(255,255,255,0.05);
       text-align: center;
     }
 
-    .btn-red {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #ff0000, #cc0000);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 17px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
-      transition: 0.3s ease;
+    /* Content Cards (Same as Screenshots) */
+    .main-wrapper {
+      padding: 0 15px 30px 15px;
     }
 
-    .btn-red:active { transform: scale(0.97); }
+    .card {
+      background: #111; 
+      border-radius: 25px; 
+      padding: 25px 20px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
 
-    /* Sidebar & Navigation */
+    .card-text {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      color: #e0e0e0;
+    }
+
+    .card-text span { margin-right: 12px; }
+
+    /* Red Action Buttons */
+    .btn-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 16px;
+      background: #ff0000; 
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-action:active { transform: scale(0.98); }
+    .btn-action span { margin-right: 10px; }
+
+    /* Sidebar Menu */
     .sidebar {
       position: fixed; top: 0; left: -280px; width: 260px; height: 100%;
-      background: #0d0d0d; z-index: 10001; transition: 0.4s ease; padding-top: 80px;
+      background: #0d0d0d; z-index: 10001; transition: 0.4s; padding-top: 80px;
     }
     .sidebar.open { left: 0; }
     .sidebar a {
       display: block; padding: 15px 25px; color: #fff; text-decoration: none;
-      border-bottom: 1px solid #1a1a1a; font-weight: 500;
+      border-bottom: 1px solid #1a1a1a;
     }
 
     .overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7); display: none; z-index: 10000;
-    }
-
-    .menu-trigger { position: absolute; left: 20px; color: #fff; cursor: pointer; font-size: 30px; }
-
-    /* Mobile Ad Fix - Responsive Scaling */
-    @media (max-width: 768px) {
-      .ad-slot-box iframe {
-        max-width: 100% !important;
-        transform: scale(0.95); /* Thoda chota kiya taaki screen se bahar na jaye */
-        transform-origin: center;
-      }
+      background: rgba(0,0,0,0.8); display: none; z-index: 10000;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <span class="material-icons menu-trigger" onclick="toggleSidebar()">menu</span>
+  <span class="material-icons menu-icon" onclick="toggleMenu()">menu</span>
   <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="Cricket Yoddha">
 </header>
 
 <div class="video-container">
-  <iframe src="https://cricketstan.github.io/channel-10" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+  <iframe src="https://cricketstan.github.io/channel-10" allowfullscreen allow="autoplay"></iframe>
 </div>
 
-<div class="ad-main-wrapper">
-  <div class="ad-slot-box">
+<div class="ad-wrapper">
+  <div class="ad-container">
     <script type="text/javascript">
       atOptions = {
         'key' : '13efb179005d71679640ac291f032628',
@@ -155,56 +156,82 @@
   </div>
 </div>
 
-<div class="content-section">
+<div class="main-wrapper">
   
-  <div class="info-card">
-    <p style="margin-bottom: 15px; color: #bbb;">🚀 Join Telegram for Live Match Updates</p>
-    <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="btn-red">🚀 Join Telegram</a>
+  <div class="card">
+    <div class="card-text">
+      <span class="material-icons" style="color: #ff4444;">notifications_active</span>
+      Follow us for more Updates
+    </div>
+    <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="btn-action">
+      <span class="material-icons">rocket_launch</span> Join Telegram
+    </a>
   </div>
 
-  <div class="info-card">
-    <p style="margin-bottom: 15px; color: #bbb;">📤 Share with your Friends</p>
-    <button onclick="sharePage()" class="btn-red">📤 Share This Page Link</button>
+  <div class="card">
+    <div class="card-text">
+      <span class="material-icons" style="color: #00eaff;">share</span>
+      Share Stream
+    </div>
+    <button onclick="copyShare()" class="btn-action">
+      <span class="material-icons">send</span> Share This Page Link
+    </button>
   </div>
 
+</div>
+
+<div class="ad-wrapper">
+  <div class="ad-container">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '13efb179005d71679640ac291f032628',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="https://www.highperformanceformat.com/13efb179005d71679640ac291f032628/invoke.js"></script>
+  </div>
 </div>
 
 <div class="sidebar" id="sidebar">
-  <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank">Telegram Channel</a>
-  <a href="#" onclick="alert('Coming Soon!')">Contact Us</a>
+  <div style="padding: 20px; text-align: center; border-bottom: 1px solid #333; font-weight: bold;">MENU</div>
+  <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank">Join Telegram</a>
+  <a href="#">Contact Us</a>
 </div>
-<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <script>
-  // Sidebar logic
-  function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const isOpen = sidebar.classList.toggle('open');
-    overlay.style.display = isOpen ? 'block' : 'none';
+  function toggleMenu() {
+    const sb = document.getElementById('sidebar');
+    const ov = document.getElementById('overlay');
+    if (sb.classList.contains('open')) {
+      sb.classList.remove('open');
+      ov.style.display = 'none';
+    } else {
+      sb.classList.add('open');
+      ov.style.display = 'block';
+    }
   }
 
-  // Share Functionality
-  async function sharePage() {
-    const shareData = {
-      title: 'CRICKET YODDHA',
-      text: 'Watch Live Cricket Match here! 🏏',
-      url: window.location.href,
-    };
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        await navigator.clipboard.writeText(window.location.href);
-        alert('Link Copied to Clipboard!');
-      }
-    } catch (err) {
-      console.log('Error sharing:', err);
+  async function copyShare() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'CRICKET YODDHA LIVE',
+          url: window.location.href
+        });
+      } catch (err) { console.log(err); }
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link Copied to Clipboard!');
     }
   }
 </script>
 
 </body>
 </html>
+
 
 
