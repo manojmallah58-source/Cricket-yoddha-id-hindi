@@ -14,100 +14,101 @@
 
     /* Header Styling */
     header {
-      position: fixed; top: 0; left: 0; right: 0; height: 65px;
+      position: fixed; top: 0; left: 0; right: 0; height: 60px;
       background: #000; display: flex; align-items: center;
       justify-content: center; z-index: 1000;
+      border-bottom: 1px solid #1a1a1a;
     }
-    header img { height: 50px; }
-    .menu-icon { position: absolute; left: 15px; font-size: 30px; cursor: pointer; color: #fff; }
+    header img { height: 45px; }
+    .menu-icon { position: absolute; left: 15px; font-size: 28px; cursor: pointer; color: #fff; }
 
-    /* Video Section */
+    /* Video Player */
     .video-container {
-      width: 100%; aspect-ratio: 16/9; background: #000; margin-top: 65px;
+      width: 100%; aspect-ratio: 16/9; background: #000; margin-top: 60px;
     }
     .video-container iframe { width: 100%; height: 100%; border: none; }
 
-    /* BANNER FIX: Scaling to fit mobile screen */
-    .banner-outer-box {
+    /* BANNER PERFECT FIT LOGIC */
+    .ad-outer-container {
       width: 100%;
+      background: #000;
+      overflow: hidden;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 10px 0;
-      background: #000;
-      overflow: hidden; /* Ad ko bahar nahi jane dega */
+      padding: 5px 0;
     }
 
-    .ad-728-container {
+    .ad-scaler {
+      /* Mobile width ke hisaab se 728px ko fit karne ke liye math */
       width: 728px;
       height: 90px;
-      transform-origin: center center;
+      transform-origin: top center;
       display: flex;
       justify-content: center;
     }
 
-    /* Mobile Responsive Scaling */
-    @media (max-width: 768px) {
-      .ad-728-container { transform: scale(0.48); width: 350px; height: 45px; margin: -22px 0; }
-    }
-    @media (max-width: 400px) {
-      .ad-728-container { transform: scale(0.44); width: 320px; height: 40px; margin: -25px 0; }
+    @media screen and (max-width: 768px) {
+      .ad-scaler { 
+        transform: scale(calc(100vw / 728)); /* Ye screen width ke hisaab se ad ko stretch karega */
+        height: calc(90px * (100vw / 728));
+      }
+      .ad-outer-container { height: calc(90px * (100vw / 728) + 10px); }
     }
 
-    /* Action Cards Design - Screenshot Exact Match */
-    .main-wrapper { padding: 10px 15px; }
+    /* Screenshot Style Cards */
+    .page-padding { padding: 15px; }
     
-    .status-card {
-      background: #151515; /* Grey Background */
-      border-radius: 28px; /* Extra rounded as per image */
-      padding: 22px 20px;
+    .card-box {
+      background: #111111; /* Screenshot jaisa deep dark grey */
+      border-radius: 25px; /* Perfect rounded corners */
+      padding: 22px;
       margin-bottom: 20px;
-      text-align: left;
+      border: 1px solid #1a1a1a;
     }
 
-    .info-label {
-      font-size: 17px;
+    .card-text {
+      font-size: 16px;
       font-weight: 500;
-      color: #ccc;
-      margin-bottom: 15px;
+      color: #e0e0e0;
+      margin-bottom: 18px;
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .red-action-btn {
+    .red-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      background: #f10000; /* Bright Red */
+      gap: 10px;
+      background: #ff0000; /* Screenshot jaisa pure red */
       color: #fff;
       text-decoration: none;
-      padding: 16px;
-      border-radius: 20px;
-      font-size: 19px;
+      padding: 15px;
+      border-radius: 15px;
+      font-size: 18px;
       font-weight: 700;
       border: none;
       width: 100%;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
     }
 
-    /* Sidebar */
-    .sidebar-menu {
+    /* Sidebar & Overlay */
+    .sidebar {
       position: fixed; top: 0; left: -280px; width: 260px; height: 100%;
-      background: #111; z-index: 2000; transition: 0.3s ease; padding-top: 70px;
+      background: #0a0a0a; z-index: 2000; transition: 0.3s; padding-top: 60px;
     }
-    .sidebar-menu.open { left: 0; }
-    .sidebar-menu a {
+    .sidebar.open { left: 0; }
+    .sidebar a {
       display: block; padding: 15px 25px; color: #fff; text-decoration: none;
-      border-bottom: 1px solid #222; font-size: 16px;
+      border-bottom: 1px solid #1a1a1a;
     }
-    .dark-overlay {
+    .overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8); z-index: 1500; display: none;
+      background: rgba(0,0,0,0.85); z-index: 1500; display: none;
     }
-    .dark-overlay.show { display: block; }
+    .overlay.show { display: block; }
   </style>
 </head>
 <body>
@@ -121,8 +122,8 @@
   <iframe src="https://cricketstan.github.io/channel-10" allowfullscreen></iframe>
 </div>
 
-<div class="banner-outer-box">
-  <div class="ad-728-container">
+<div class="ad-outer-container">
+  <div class="ad-scaler">
     <script type="text/javascript">
       atOptions = { 'key' : '13efb179005d71679640ac291f032628', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
     </script>
@@ -130,20 +131,20 @@
   </div>
 </div>
 
-<div class="main-wrapper">
-  <div class="status-card">
-    <div class="info-label">📢 Follow us for more Updates</div>
-    <a href="https://t.me/+rwZKMV0-L8wyOTll" class="red-action-btn">🚀 Join Telegram</a>
+<div class="page-padding">
+  <div class="card-box">
+    <div class="card-text">📢 Follow us for more Updates</div>
+    <a href="https://t.me/+rwZKMV0-L8wyOTll" class="red-btn">🚀 Join Telegram</a>
   </div>
 
-  <div class="status-card">
-    <div class="info-label">🔗 Share Stream</div>
-    <button onclick="shareLink()" class="red-action-btn">📥 Share This Page Link</button>
+  <div class="card-box">
+    <div class="card-text">🔗 Share Stream</div>
+    <button onclick="shareMe()" class="red-btn">📥 Share This Page Link</button>
   </div>
 </div>
 
-<div class="banner-outer-box">
-  <div class="ad-728-container">
+<div class="ad-outer-container">
+  <div class="ad-scaler">
     <script type="text/javascript">
       atOptions = { 'key' : '13efb179005d71679640ac291f032628', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
     </script>
@@ -151,13 +152,12 @@
   </div>
 </div>
 
-<div class="sidebar-menu" id="sidebar">
+<div class="sidebar" id="sidebar">
   <a href="#">🏠 Home</a>
-  <a href="https://t.me/+rwZKMV0-L8wyOTll">📲 Telegram Channel</a>
+  <a href="https://t.me/+rwZKMV0-L8wyOTll">📲 Join Telegram</a>
   <a href="#">📩 Contact Us</a>
-  <a href="#">⚠️ Copyright</a>
 </div>
-<div class="dark-overlay" id="overlay" onclick="toggleNav()"></div>
+<div class="overlay" id="overlay" onclick="toggleNav()"></div>
 
 <script>
   function toggleNav() {
@@ -165,7 +165,7 @@
     document.getElementById('overlay').classList.toggle('show');
   }
 
-  function shareLink() {
+  function shareMe() {
     if (navigator.share) {
       navigator.share({ title: 'CRICKET YODDHA', url: window.location.href });
     } else {
