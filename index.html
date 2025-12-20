@@ -12,116 +12,117 @@
       font-family: 'Poppins', sans-serif; color: #fff; overflow-x: hidden;
     }
 
-    /* Header */
+    /* Header Styling */
     header {
-      position: fixed; top: 0; left: 0; right: 0; height: 60px;
+      position: fixed; top: 0; left: 0; right: 0; height: 65px;
       background: #000; display: flex; align-items: center;
-      justify-content: center; z-index: 1000; border-bottom: 1px solid #1a1a1a;
+      justify-content: center; z-index: 1000;
     }
-    header img { height: 45px; }
+    header img { height: 50px; }
     .menu-icon { position: absolute; left: 15px; font-size: 30px; cursor: pointer; color: #fff; }
 
-    /* Video Player */
+    /* Video Section */
     .video-container {
-      width: 100%; aspect-ratio: 16/9; background: #000; margin-top: 60px;
+      width: 100%; aspect-ratio: 16/9; background: #000; margin-top: 65px;
     }
     .video-container iframe { width: 100%; height: 100%; border: none; }
 
-    /* Banner Fix: Scaling logic for 728x90 on Mobile */
-    .ad-wrapper {
+    /* BANNER FIX: Scaling to fit mobile screen */
+    .banner-outer-box {
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 10px 0;
-      overflow: hidden;
       background: #000;
+      overflow: hidden; /* Ad ko bahar nahi jane dega */
     }
 
-    .ad-container-728 {
+    .ad-728-container {
       width: 728px;
       height: 90px;
-      flex-shrink: 0;
       transform-origin: center center;
+      display: flex;
+      justify-content: center;
     }
 
-    /* Screen width ke hisaab se ad ko resize karega */
+    /* Mobile Responsive Scaling */
     @media (max-width: 768px) {
-      .ad-container-728 { transform: scale(0.5); width: 364px; height: 45px; margin: -22px 0; }
+      .ad-728-container { transform: scale(0.48); width: 350px; height: 45px; margin: -22px 0; }
     }
     @media (max-width: 400px) {
-      .ad-container-728 { transform: scale(0.45); width: 327px; height: 40px; margin: -25px 0; }
+      .ad-728-container { transform: scale(0.44); width: 320px; height: 40px; margin: -25px 0; }
     }
 
-    /* Cards - Screenshot Design */
-    .content-area { padding: 12px; }
+    /* Action Cards Design - Screenshot Exact Match */
+    .main-wrapper { padding: 10px 15px; }
     
-    .custom-card {
-      background: #121212; /* Dark Grey exact match */
-      border-radius: 22px;
-      padding: 22px 18px;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    .status-card {
+      background: #151515; /* Grey Background */
+      border-radius: 28px; /* Extra rounded as per image */
+      padding: 22px 20px;
+      margin-bottom: 20px;
+      text-align: left;
     }
 
-    .label-text {
-      font-size: 16px;
+    .info-label {
+      font-size: 17px;
       font-weight: 500;
-      color: #e0e0e0;
-      margin-bottom: 12px;
+      color: #ccc;
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .action-btn {
+    .red-action-btn {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      background: #d90000; /* Pure Red */
+      background: #f10000; /* Bright Red */
       color: #fff;
       text-decoration: none;
-      padding: 14px;
-      border-radius: 16px;
-      font-size: 18px;
+      padding: 16px;
+      border-radius: 20px;
+      font-size: 19px;
       font-weight: 700;
       border: none;
       width: 100%;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(217, 0, 0, 0.2);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     /* Sidebar */
-    .sidebar {
+    .sidebar-menu {
       position: fixed; top: 0; left: -280px; width: 260px; height: 100%;
-      background: #0a0a0a; z-index: 2000; transition: 0.3s; padding-top: 60px;
+      background: #111; z-index: 2000; transition: 0.3s ease; padding-top: 70px;
     }
-    .sidebar.open { left: 0; }
-    .sidebar a {
+    .sidebar-menu.open { left: 0; }
+    .sidebar-menu a {
       display: block; padding: 15px 25px; color: #fff; text-decoration: none;
-      border-bottom: 1px solid #1a1a1a;
+      border-bottom: 1px solid #222; font-size: 16px;
     }
-    .overlay {
+    .dark-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85); z-index: 1500; display: none;
+      background: rgba(0,0,0,0.8); z-index: 1500; display: none;
     }
-    .overlay.show { display: block; }
+    .dark-overlay.show { display: block; }
   </style>
 </head>
 <body>
 
 <header>
-  <span class="material-icons menu-icon" onclick="toggleMenu()">menu</span>
-  <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="CRICKET YODDHA">
+  <span class="material-icons menu-icon" onclick="toggleNav()">menu</span>
+  <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="Logo">
 </header>
 
 <div class="video-container">
   <iframe src="https://cricketstan.github.io/channel-10" allowfullscreen></iframe>
 </div>
 
-<div class="ad-wrapper">
-  <div class="ad-container-728">
+<div class="banner-outer-box">
+  <div class="ad-728-container">
     <script type="text/javascript">
       atOptions = { 'key' : '13efb179005d71679640ac291f032628', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
     </script>
@@ -129,20 +130,20 @@
   </div>
 </div>
 
-<div class="content-area">
-  <div class="custom-card">
-    <div class="label-text">📢 Follow us for more Updates</div>
-    <a href="https://t.me/+rwZKMV0-L8wyOTll" class="action-btn">🚀 Join Telegram</a>
+<div class="main-wrapper">
+  <div class="status-card">
+    <div class="info-label">📢 Follow us for more Updates</div>
+    <a href="https://t.me/+rwZKMV0-L8wyOTll" class="red-action-btn">🚀 Join Telegram</a>
   </div>
 
-  <div class="custom-card">
-    <div class="label-text">🔗 Share Stream</div>
-    <button onclick="copyPageUrl()" class="action-btn">📥 Share This Page Link</button>
+  <div class="status-card">
+    <div class="info-label">🔗 Share Stream</div>
+    <button onclick="shareLink()" class="red-action-btn">📥 Share This Page Link</button>
   </div>
 </div>
 
-<div class="ad-wrapper">
-  <div class="ad-container-728">
+<div class="banner-outer-box">
+  <div class="ad-728-container">
     <script type="text/javascript">
       atOptions = { 'key' : '13efb179005d71679640ac291f032628', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
     </script>
@@ -150,29 +151,25 @@
   </div>
 </div>
 
-<div class="sidebar" id="sidebar">
-  <a href="#">Home</a>
-  <a href="https://t.me/+rwZKMV0-L8wyOTll">Telegram Channel</a>
-  <a href="#">Copyright Info</a>
+<div class="sidebar-menu" id="sidebar">
+  <a href="#">🏠 Home</a>
+  <a href="https://t.me/+rwZKMV0-L8wyOTll">📲 Telegram Channel</a>
+  <a href="#">📩 Contact Us</a>
+  <a href="#">⚠️ Copyright</a>
 </div>
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="dark-overlay" id="overlay" onclick="toggleNav()"></div>
 
 <script>
-  function toggleMenu() {
+  function toggleNav() {
     document.getElementById('sidebar').classList.toggle('open');
     document.getElementById('overlay').classList.toggle('show');
   }
 
-  function copyPageUrl() {
+  function shareLink() {
     if (navigator.share) {
       navigator.share({ title: 'CRICKET YODDHA', url: window.location.href });
     } else {
-      const el = document.createElement('textarea');
-      el.value = window.location.href;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
+      navigator.clipboard.writeText(window.location.href);
       alert("Link Copied!");
     }
   }
@@ -180,6 +177,7 @@
 
 </body>
 </html>
+
 
 
 
