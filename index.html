@@ -2,228 +2,186 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CRICKET YODDHA</title>
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Global Styles */
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body {
       margin: 0;
       padding: 0;
-      background: #000000;
+      background: #000000; /* Screenshot ke mutabiq black background */
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
-      color: #ffffff;
+      color: #e0e0e0;
     }
 
-    /* Header */
+    /* 🟢 Header Style: Screenshot se match karta hua */
     header {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 65px;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
       background: #000000;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 9999;
-    }
-    header img { height: 45px; }
-    .menu-icon { position: absolute; left: 16px; color: #fff; font-size: 30px; cursor: pointer; }
-
-    /* Video Player */
-    .video-section { margin-top: 65px; width: 100%; background: #000; }
-    .video-container { width: 100%; aspect-ratio: 16/9; position: relative; }
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-
-    /* Content Area */
-    .main-content { padding: 0 15px 30px 15px; }
-
-    /* Live Channel Badge (Image 2 match) */
-    .channel-header {
-      background: #121212;
-      padding: 15px 20px;
-      border-radius: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 15px 0;
-    }
-    .channel-name { font-size: 1.1rem; font-weight: 700; color: #fff; text-transform: uppercase; }
-    .live-badge {
-      background: #e60000;
-      padding: 6px 14px;
-      border-radius: 50px;
-      font-size: 13px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .live-dot { width: 8px; height: 8px; background: #fff; border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
-    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-    /* Interaction Cards (Image 1 match) */
-    .action-card {
-      background: #121212;
-      padding: 22px 18px;
-      border-radius: 25px;
-      margin-bottom: 15px;
-    }
-    .card-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #e0e0e0;
-      margin-bottom: 15px;
+      padding: 0 15px;
     }
 
-    /* Vibrant Red Buttons */
-    .red-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      background: #ff0000;
-      color: #ffffff;
-      padding: 16px;
-      border-radius: 15px;
-      font-size: 18px;
-      font-weight: 700;
-      text-decoration: none;
-      border: none;
+    header img {
+      height: 45px; /* Logo size screenshot ke mutabiq */
+      object-fit: contain;
+    }
+
+    .menu-icon {
+      position: absolute;
+      left: 15px;
+      color: #fff;
+      font-size: 32px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
     }
 
-    /* Telegram Popup Styles */
+    /* 📺 Video Container Style */
+    .video-container {
+      width: 100vw;
+      margin-top: 60px; /* Header height ke barabar gap */
+      background: #000;
+      position: relative;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+      display: block;
+    }
+
+    /* 🔔 Popup Styles */
     .popup-overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: none; /* Initially Hidden */
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 10005;
-      backdrop-filter: blur(5px);
+      z-index: 10002;
     }
+
     .popup-box {
-      width: 90%;
-      max-width: 320px;
+      width: 300px;
       background: #1a1a1a;
       border: 1px solid #333;
-      border-radius: 25px;
-      padding: 30px 20px;
+      border-radius: 15px;
+      padding: 20px;
       text-align: center;
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+      position: relative;
     }
-    .popup-header { font-size: 1.6rem; font-weight: 800; color: #ff0000; margin-bottom: 10px; }
-    .popup-text { color: #bbb; margin-bottom: 20px; font-size: 0.95rem; }
+
+    .popup-header {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .popup-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 10px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .join-btn {
+      background: #0088cc;
+      color: #fff;
+    }
 
     /* Sidebar */
-    .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #111; z-index: 10001; transition: 0.3s; padding-top: 70px; }
+    .sidebar {
+      position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
+      background: #111;
+      color: #fff; z-index: 10001; transition: 0.3s;
+      padding-top: 20px;
+    }
     .sidebar.open { left: 0; }
-    .sidebar a { display: block; padding: 15px 25px; color: #fff; text-decoration: none; border-bottom: 1px solid #222; }
-    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 10000; }
+    .sidebar a {
+      display: block; padding: 15px 20px; color: #fff; text-decoration: none;
+      border-bottom: 1px solid #222;
+    }
+
+    .overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 10000; display: none;
+    }
     .overlay.show { display: block; }
   </style>
 </head>
 <body>
 
-  <div class="popup-overlay" id="telegramPopup">
-    <div class="popup-box">
-      <div class="popup-header">Support Us!</div>
-      <div class="popup-text">Join our Telegram channel for the latest match updates and direct links.</div>
-      <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="red-btn" onclick="closePopup()">
-        🚀 Join Telegram Now
-      </a>
-      <button onclick="closePopup()" style="background:none; border:none; color:#777; margin-top:15px; cursor:pointer; font-weight:600;">Maybe Later</button>
-    </div>
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-header">Support Us!</div>
+    <p>Join Telegram for Updates</p>
+    <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" style="text-decoration:none;">
+        <button class="popup-btn join-btn">JOIN TELEGRAM</button>
+    </a>
+    <button class="popup-btn" onclick="closePopup()" style="background:#333; color:#fff;">CLOSE</button>
   </div>
+</div>
 
-  <header>
-    <span class="material-icons menu-icon" onclick="toggleMenu()">menu</span>
-    <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="Logo">
-  </header>
+<header>
+  <span class="material-icons menu-icon" onclick="toggleSidebar()">menu</span>
+  <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="CRICKET YODDHA">
+</header>
 
-  <div class="video-section">
-    <div class="video-container">
-      <iframe src="https://cricketstan.github.io/channel-10" allowfullscreen></iframe>
-    </div>
-  </div>
+<div class="video-container">
+  <iframe
+    src="https://cricketstan.github.io/channel-10"
+    allowfullscreen
+    allow="autoplay; encrypted-media">
+  </iframe>
+</div>
 
-  <div class="main-content">
-    <div class="channel-header">
-      <div class="channel-name">Sports Hindi</div>
-      <div class="live-badge"><span class="live-dot"></span> LIVE</div>
-    </div>
-
-    <div class="action-card">
-      <div class="card-label"><span>📢</span> Follow us for more Updates</div>
-      <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="red-btn">
-        🚀 Join Telegram
-      </a>
+<div style="padding:20px;">
+    <div style="background:#111; padding:15px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0; font-size:18px;">Star Sports Hindi</h2>
+        <span style="color:#ff0000; font-weight:bold; font-size:14px;">● LIVE</span>
     </div>
 
-    <div class="action-card">
-      <div class="card-label"><span>🔗</span> Share Stream</div>
-      <button onclick="shareLink()" class="red-btn">
-        📤 Share This Page Link
-      </button>
+    <div style="margin-top:20px;">
+        <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" style="display:block; background:#d1001f; color:#fff; text-align:center; padding:15px; border-radius:10px; text-decoration:none; font-weight:bold;">🚀 JOIN TELEGRAM</a>
     </div>
-  </div>
+</div>
 
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-  <div class="sidebar" id="sidebar">
-    <a href="https://t.me/+rwZKMV0-L8wyOTll">Join Telegram</a>
-    <a href="#">Contact Us</a>
-    <a href="#">Copyright</a>
-  </div>
+<div class="sidebar" id="sidebar">
+  <div style="padding:20px; font-weight:bold; font-size:20px; border-bottom:1px solid #333;">MENU</div>
+  <a href="#">Home</a>
+  <a href="https://t.me/+rwZKMV0-L8wyOTll">Telegram</a>
+  <a href="#">Contact</a>
+</div>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-  <script>
-    // Sidebar Toggle
-    function toggleMenu() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('show');
-    }
+<script>
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+}
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+</script>
 
-    // Popup Logic
-    function closePopup() {
-      document.getElementById('telegramPopup').style.display = 'none';
-    }
-
-    window.onload = function() {
-      // 5 seconds delay ke baad popup aayega
-      setTimeout(function() {
-        document.getElementById('telegramPopup').style.display = 'flex';
-      }, 5000);
-    };
-
-    // Share Function
-    async function shareLink() {
-      const shareData = {
-        title: 'CRICKET YODDHA',
-        text: 'Watch Live Cricket Match here! 🏏',
-        url: window.location.href
-      };
-      try {
-        if (navigator.share) {
-          await navigator.share(shareData);
-        } else {
-          navigator.clipboard.writeText(window.location.href);
-          alert("Link Copied to Clipboard!");
-        }
-      } catch (err) { console.log(err); }
-    }
-  </script>
 </body>
 </html>
+
 
 
 
