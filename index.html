@@ -16,10 +16,10 @@
     header {
       position: fixed; top: 0; left: 0; right: 0; height: 60px;
       background: #000; display: flex; align-items: center;
-      justify-content: center; z-index: 1000;
+      justify-content: center; z-index: 1000; border-bottom: 1px solid #1a1a1a;
     }
     header img { height: 45px; }
-    .menu-icon { position: absolute; left: 15px; font-size: 30px; cursor: pointer; }
+    .menu-icon { position: absolute; left: 15px; font-size: 30px; cursor: pointer; color: #fff; }
 
     /* Video Player */
     .video-container {
@@ -27,56 +27,84 @@
     }
     .video-container iframe { width: 100%; height: 100%; border: none; }
 
-    /* Ads Section - Scaling fix for 728x90 */
-    .ad-slot {
-      width: 100%; display: flex; justify-content: center;
-      padding: 10px 0; overflow: hidden;
-    }
-    .ad-content {
-      transform-origin: center top;
-      max-width: 100%;
-    }
-    /* Mobile Scaling for Large Banner */
-    @media screen and (max-width: 768px) {
-      .ad-content { transform: scale(0.5); height: 50px; } /* Scale to fit mobile */
-    }
-    @media screen and (max-width: 400px) {
-      .ad-content { transform: scale(0.45); height: 45px; }
+    /* Banner Fix: Scaling logic for 728x90 on Mobile */
+    .ad-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+      overflow: hidden;
+      background: #000;
     }
 
-    /* Cards - Exact match to screenshot */
-    .container { padding: 15px; }
-    .action-card {
-      background: #1a1a1a; /* Dark Grey like screenshot */
-      border-radius: 25px;
-      padding: 25px 20px;
-      margin-bottom: 20px;
+    .ad-container-728 {
+      width: 728px;
+      height: 90px;
+      flex-shrink: 0;
+      transform-origin: center center;
     }
-    .card-label {
-      font-size: 17px; font-weight: 500; color: #ddd;
-      margin-bottom: 15px; display: flex; align-items: center; gap: 8px;
+
+    /* Screen width ke hisaab se ad ko resize karega */
+    @media (max-width: 768px) {
+      .ad-container-728 { transform: scale(0.5); width: 364px; height: 45px; margin: -22px 0; }
     }
-    .main-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      background: #e60000; /* Bright Red */
-      color: #fff; text-decoration: none; padding: 16px;
-      border-radius: 18px; font-size: 19px; font-weight: 700;
-      border: none; width: 100%; cursor: pointer;
+    @media (max-width: 400px) {
+      .ad-container-728 { transform: scale(0.45); width: 327px; height: 40px; margin: -25px 0; }
+    }
+
+    /* Cards - Screenshot Design */
+    .content-area { padding: 12px; }
+    
+    .custom-card {
+      background: #121212; /* Dark Grey exact match */
+      border-radius: 22px;
+      padding: 22px 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .label-text {
+      font-size: 16px;
+      font-weight: 500;
+      color: #e0e0e0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #d90000; /* Pure Red */
+      color: #fff;
+      text-decoration: none;
+      padding: 14px;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(217, 0, 0, 0.2);
     }
 
     /* Sidebar */
     .sidebar {
       position: fixed; top: 0; left: -280px; width: 260px; height: 100%;
-      background: #111; z-index: 2000; transition: 0.3s; padding-top: 60px;
+      background: #0a0a0a; z-index: 2000; transition: 0.3s; padding-top: 60px;
     }
     .sidebar.open { left: 0; }
     .sidebar a {
       display: block; padding: 15px 25px; color: #fff; text-decoration: none;
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid #1a1a1a;
     }
     .overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8); z-index: 1500; display: none;
+      background: rgba(0,0,0,0.85); z-index: 1500; display: none;
     }
     .overlay.show { display: block; }
   </style>
@@ -92,8 +120,8 @@
   <iframe src="https://cricketstan.github.io/channel-10" allowfullscreen></iframe>
 </div>
 
-<div class="ad-slot">
-  <div class="ad-content">
+<div class="ad-wrapper">
+  <div class="ad-container-728">
     <script type="text/javascript">
       atOptions = { 'key' : '13efb179005d71679640ac291f032628', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
     </script>
@@ -101,20 +129,20 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="action-card">
-    <div class="card-label">📢 Follow us for more Updates</div>
-    <a href="https://t.me/+rwZKMV0-L8wyOTll" class="main-btn">🚀 Join Telegram</a>
+<div class="content-area">
+  <div class="custom-card">
+    <div class="label-text">📢 Follow us for more Updates</div>
+    <a href="https://t.me/+rwZKMV0-L8wyOTll" class="action-btn">🚀 Join Telegram</a>
   </div>
 
-  <div class="action-card">
-    <div class="card-label">🔗 Share Stream</div>
-    <button onclick="shareLink()" class="main-btn">📥 Share This Page Link</button>
+  <div class="custom-card">
+    <div class="label-text">🔗 Share Stream</div>
+    <button onclick="copyPageUrl()" class="action-btn">📥 Share This Page Link</button>
   </div>
 </div>
 
-<div class="ad-slot">
-  <div class="ad-content">
+<div class="ad-wrapper">
+  <div class="ad-container-728">
     <script type="text/javascript">
       atOptions = { 'key' : '13efb179005d71679640ac291f032628', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
     </script>
@@ -125,7 +153,7 @@
 <div class="sidebar" id="sidebar">
   <a href="#">Home</a>
   <a href="https://t.me/+rwZKMV0-L8wyOTll">Telegram Channel</a>
-  <a href="#">Contact Us</a>
+  <a href="#">Copyright Info</a>
 </div>
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
@@ -135,11 +163,16 @@
     document.getElementById('overlay').classList.toggle('show');
   }
 
-  function shareLink() {
+  function copyPageUrl() {
     if (navigator.share) {
       navigator.share({ title: 'CRICKET YODDHA', url: window.location.href });
     } else {
-      navigator.clipboard.writeText(window.location.href);
+      const el = document.createElement('textarea');
+      el.value = window.location.href;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
       alert("Link Copied!");
     }
   }
@@ -147,6 +180,7 @@
 
 </body>
 </html>
+
 
 
 
