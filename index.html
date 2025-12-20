@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CRICKET YODDHA</title>
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -13,7 +12,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: #000000; /* Screenshot match: Pitch Black */
+      background: #000000;
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
       color: #ffffff;
@@ -31,7 +30,6 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 9999;
     }
-
     header img { height: 45px; }
     .menu-icon { position: absolute; left: 16px; color: #fff; font-size: 30px; cursor: pointer; }
 
@@ -40,31 +38,20 @@
     .video-container { width: 100%; aspect-ratio: 16/9; position: relative; }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-    /* Ad Banner Style */
-    .ad-wrapper {
-      display: flex;
-      justify-content: center;
-      padding: 12px 0;
-      background: #000;
-    }
-
     /* Content Area */
     .main-content { padding: 0 15px 30px 15px; }
 
-    /* Live Channel Badge (Second Screenshot Match) */
+    /* Live Channel Badge (Image 2 match) */
     .channel-header {
-      background: #111111;
+      background: #121212;
       padding: 15px 20px;
       border-radius: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      margin-top: 5px;
+      margin: 15px 0;
     }
-
-    .channel-name { font-size: 1.2rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
-    
+    .channel-name { font-size: 1.1rem; font-weight: 700; color: #fff; text-transform: uppercase; }
     .live-badge {
       background: #e60000;
       padding: 6px 14px;
@@ -75,35 +62,34 @@
       align-items: center;
       gap: 5px;
     }
-    .live-dot { width: 8px; height: 8px; background: #fff; border-radius: 50%; display: inline-block; }
+    .live-dot { width: 8px; height: 8px; background: #fff; border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
+    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-    /* Info Cards (First Screenshot Match) */
+    /* Interaction Cards (Image 1 match) */
     .action-card {
-      background: #151515; /* Dark Grey Card */
-      padding: 25px 20px;
+      background: #121212;
+      padding: 22px 18px;
       border-radius: 25px;
-      margin-bottom: 20px;
-      text-align: left;
+      margin-bottom: 15px;
     }
-
     .card-label {
       display: flex;
       align-items: center;
       gap: 10px;
       font-size: 16px;
       font-weight: 600;
-      color: #dfdfdf;
-      margin-bottom: 18px;
+      color: #e0e0e0;
+      margin-bottom: 15px;
     }
 
-    /* Red Action Buttons */
+    /* Vibrant Red Buttons */
     .red-btn {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       width: 100%;
-      background: #ff0000; /* Vibrant Red */
+      background: #ff0000;
       color: #ffffff;
       padding: 16px;
       border-radius: 15px;
@@ -113,15 +99,34 @@
       border: none;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-      transition: 0.2s;
     }
 
-    .red-btn:active { transform: scale(0.98); }
+    /* Telegram Popup Styles */
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none; /* Initially Hidden */
+      align-items: center;
+      justify-content: center;
+      z-index: 10005;
+      backdrop-filter: blur(5px);
+    }
+    .popup-box {
+      width: 90%;
+      max-width: 320px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 25px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+    }
+    .popup-header { font-size: 1.6rem; font-weight: 800; color: #ff0000; margin-bottom: 10px; }
+    .popup-text { color: #bbb; margin-bottom: 20px; font-size: 0.95rem; }
 
-    /* Popups and Sidebars */
-    .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 10002; display: none; }
-    .popup-box { width: 320px; background: #111; border: 1px solid #333; border-radius: 20px; padding: 25px; text-align: center; }
-    
+    /* Sidebar */
     .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #111; z-index: 10001; transition: 0.3s; padding-top: 70px; }
     .sidebar.open { left: 0; }
     .sidebar a { display: block; padding: 15px 25px; color: #fff; text-decoration: none; border-bottom: 1px solid #222; }
@@ -130,6 +135,17 @@
   </style>
 </head>
 <body>
+
+  <div class="popup-overlay" id="telegramPopup">
+    <div class="popup-box">
+      <div class="popup-header">Support Us!</div>
+      <div class="popup-text">Join our Telegram channel for the latest match updates and direct links.</div>
+      <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="red-btn" onclick="closePopup()">
+        🚀 Join Telegram Now
+      </a>
+      <button onclick="closePopup()" style="background:none; border:none; color:#777; margin-top:15px; cursor:pointer; font-weight:600;">Maybe Later</button>
+    </div>
+  </div>
 
   <header>
     <span class="material-icons menu-icon" onclick="toggleMenu()">menu</span>
@@ -142,62 +158,58 @@
     </div>
   </div>
 
-  <div class="ad-wrapper">
-    <script type="text/javascript">
-      atOptions = { 'key' : '60f8b3628c56f824e610bcd819ef039e', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-    </script>
-    <script type="text/javascript" src="https://www.highperformanceformat.com/60f8b3628c56f824e610bcd819ef039e/invoke.js"></script>
-  </div>
-
   <div class="main-content">
-    
     <div class="channel-header">
       <div class="channel-name">Sports Hindi</div>
-      <div class="live-badge">
-        <span class="live-dot"></span> LIVE
-      </div>
+      <div class="live-badge"><span class="live-dot"></span> LIVE</div>
     </div>
 
     <div class="action-card">
-      <div class="card-label">📣 Follow us for more Updates</div>
+      <div class="card-label"><span>📢</span> Follow us for more Updates</div>
       <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="red-btn">
         🚀 Join Telegram
       </a>
     </div>
 
     <div class="action-card">
-      <div class="card-label">🔗 Share Stream</div>
+      <div class="card-label"><span>🔗</span> Share Stream</div>
       <button onclick="shareLink()" class="red-btn">
         📤 Share This Page Link
       </button>
     </div>
-
-    <div class="ad-wrapper">
-      <script type="text/javascript">
-        atOptions = { 'key' : '60f8b3628c56f824e610bcd819ef039e', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-      </script>
-      <script type="text/javascript" src="https://www.highperformanceformat.com/60f8b3628c56f824e610bcd819ef039e/invoke.js"></script>
-    </div>
-
   </div>
 
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
   <div class="sidebar" id="sidebar">
     <a href="https://t.me/+rwZKMV0-L8wyOTll">Join Telegram</a>
     <a href="#">Contact Us</a>
-    <a href="#">Copyright Information</a>
+    <a href="#">Copyright</a>
   </div>
 
   <script>
+    // Sidebar Toggle
     function toggleMenu() {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('overlay').classList.toggle('show');
     }
 
+    // Popup Logic
+    function closePopup() {
+      document.getElementById('telegramPopup').style.display = 'none';
+    }
+
+    window.onload = function() {
+      // 5 seconds delay ke baad popup aayega
+      setTimeout(function() {
+        document.getElementById('telegramPopup').style.display = 'flex';
+      }, 5000);
+    };
+
+    // Share Function
     async function shareLink() {
       const shareData = {
         title: 'CRICKET YODDHA',
-        text: 'Watch Live Sports here! 🏏',
+        text: 'Watch Live Cricket Match here! 🏏',
         url: window.location.href
       };
       try {
@@ -205,16 +217,9 @@
           await navigator.share(shareData);
         } else {
           navigator.clipboard.writeText(window.location.href);
-          alert("Link Copied!");
+          alert("Link Copied to Clipboard!");
         }
       } catch (err) { console.log(err); }
-    }
-
-    // Delay Popup (Optional)
-    window.onload = function() {
-      setTimeout(() => {
-        // Aap yaha popup logic enable kar sakte hain agar zaroorat ho.
-      }, 5000);
     }
   </script>
 </body>
