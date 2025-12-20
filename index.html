@@ -11,53 +11,32 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: #000000; /* Screenshot ke mutabiq black background */
+      background: #0a0a0a;
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
       color: #e0e0e0;
     }
 
-    /* 🟢 Header Style: Screenshot se match karta hua */
     header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      height: 60px;
-      background: #000000;
+      height: 70px;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
       display: flex;
       align-items: center;
       justify-content: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       z-index: 9999;
-      padding: 0 15px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
     }
 
     header img {
-      height: 45px; /* Logo size screenshot ke mutabiq */
-      object-fit: contain;
-    }
-
-    .menu-icon {
-      position: absolute;
-      left: 15px;
-      color: #fff;
-      font-size: 32px;
-      cursor: pointer;
-    }
-
-    /* 📺 Video Container Style */
-    .video-container {
-      width: 100vw;
-      margin-top: 60px; /* Header height ke barabar gap */
-      background: #000;
-      position: relative;
-    }
-
-    .video-container iframe {
-      width: 100%;
-      aspect-ratio: 16/9;
-      border: none;
-      display: block;
+      height: 65%;
+      filter: drop-shadow(0 0 8px rgba(29, 185, 84, 0.3));
     }
 
     /* 🔔 Popup Styles */
@@ -65,7 +44,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -73,114 +52,241 @@
     }
 
     .popup-box {
-      width: 300px;
-      background: #1a1a1a;
-      border: 1px solid #333;
-      border-radius: 15px;
-      padding: 20px;
+      width: 320px;
+      background: rgba(20, 20, 30, 0.6);
+      border: 1px solid rgba(173, 216, 230, 0.25);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), 0 0 80px rgba(173, 216, 230, 0.15);
+      padding: 2rem 1.5rem;
       text-align: center;
       position: relative;
     }
 
     .popup-header {
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: 700;
-      color: #fff;
-      margin-bottom: 10px;
+      background: linear-gradient(45deg, #00eaff, #bd00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.4rem;
+    }
+
+    .popup-subtitle {
+      font-size: 1rem;
+      color: #aaa;
+      margin-bottom: 1.2rem;
+    }
+
+    .popup-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
     }
 
     .popup-btn {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 10px;
-      border: none;
+      padding: 0.8rem;
+      border-radius: 12px;
       font-weight: 600;
+      font-size: 1rem;
+      color: #fff;
       cursor: pointer;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-decoration: none;
     }
 
     .join-btn {
-      background: #0088cc;
+      background: linear-gradient(135deg, #00eaff, #9c00ff);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 1.3rem;
+      color: #00eaff;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .video-container {
+      width: 100vw;
+      aspect-ratio: 16/9;
+      background: #000;
+      margin-top: 70px;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    
+    .menu-icon {
+      position: absolute; left: 16px; color: #fff; font-size: 30px; cursor: pointer;
+    }
+
+    /* --- SIDEBAR CUSTOMIZED AS PER YOUR IMAGE --- */
+    .sidebar {
+      position: fixed; 
+      top: 80px; /* Thoda gap top se */
+      left: -260px; 
+      width: 240px; 
+      height: auto;
+      background: rgba(255, 255, 255, 0.1); /* Transparent Glass Look */
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.4); /* White thin border */
+      border-radius: 15px; /* Rounded corners like image */
+      color: #fff; 
+      z-index: 10001; 
+      transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 10px 0;
+      margin-left: 10px; /* Screen edge se thoda gap */
+    }
+
+    .sidebar.open { left: 0; }
+
+    .menu-header {
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: lowercase; /* As seen in image */
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
       color: #fff;
     }
-
-    /* Sidebar */
-    .sidebar {
-      position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
-      background: #111;
-      color: #fff; z-index: 10001; transition: 0.3s;
-      padding-top: 20px;
-    }
-    .sidebar.open { left: 0; }
+    
     .sidebar a {
-      display: block; padding: 15px 20px; color: #fff; text-decoration: none;
-      border-bottom: 1px solid #222;
+      display: block; 
+      padding: 15px 20px; 
+      color: #fff; 
+      text-decoration: none;
+      font-weight: 400; 
+      font-size: 15px;
+      text-transform: lowercase; /* Image style */
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s;
     }
 
-    .overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7); z-index: 10000; display: none;
+    .sidebar a:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
+    
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 10000;
+      display: none;
+    }
+
     .overlay.show { display: block; }
+
+    .counter-box img { height: 40px; }
   </style>
 </head>
 <body>
 
+<div class="popup-overlay" id="visitorPopup" style="display:none;">
+  <div class="popup-box">
+    <button class="close-btn" onclick="closeVisitorPopup()">×</button>
+    <div class="popup-header">Total Visitors</div>
+    <div class="popup-subtitle">Users Live On Web</div>
+    <div class="counter-box">
+      <img src="https://visit-counter.vercel.app/counter.png?page=allrounder.com&s=40&c=00ff00&bg=00000000&no=10&ff=digi&tb=&ta=" alt="Visitor Count" />
+    </div>
+  </div>
+</div>
+
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
+    <button class="close-btn" onclick="closePopup()">×</button>
     <div class="popup-header">Support Us!</div>
-    <p>Join Telegram for Updates</p>
-    <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" style="text-decoration:none;">
-        <button class="popup-btn join-btn">JOIN TELEGRAM</button>
-    </a>
-    <button class="popup-btn" onclick="closePopup()" style="background:#333; color:#fff;">CLOSE</button>
+    <div class="popup-subtitle">Join our Telegram for latest updates.</div>
+    <div class="popup-buttons">
+      <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="popup-btn join-btn">Join Now</a>
+      <button class="popup-btn already-btn" onclick="closePopup()" style="background:none; border:none; color:#aaa; cursor:pointer; margin-top:10px;">Already Joined</button>
+    </div>
   </div>
 </div>
 
 <header>
   <span class="material-icons menu-icon" onclick="toggleSidebar()">menu</span>
-  <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="CRICKET YODDHA">
+  <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="Logo">
 </header>
 
 <div class="video-container">
-  <iframe
-    src="https://cricketstan.github.io/channel-10"
-    allowfullscreen
-    allow="autoplay; encrypted-media">
-  </iframe>
+  <iframe src="https://cricketstan.github.io/channel-10" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"></iframe>
 </div>
 
-<div style="padding:20px;">
-    <div style="background:#111; padding:15px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
-        <h2 style="margin:0; font-size:18px;">Star Sports Hindi</h2>
-        <span style="color:#ff0000; font-weight:bold; font-size:14px;">● LIVE</span>
+<div style="background:#000;padding:20px;color:#fff;">
+    <div style="background:#111;padding:18px 20px;border-radius:18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;">
+        <h2 style="margin:0;font-size:24px;font-weight:600;">Star Sports Hindi</h2>
+        <div style="background:#d1001f;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:700;">🔴 LIVE</div>
     </div>
 
-    <div style="margin-top:20px;">
-        <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" style="display:block; background:#d1001f; color:#fff; text-align:center; padding:15px; border-radius:10px; text-decoration:none; font-weight:bold;">🚀 JOIN TELEGRAM</a>
+    <div style="background:#1a1a1a;padding:20px;border-radius:20px;margin-bottom:25px;">
+        <p style="margin:0 0 12px;font-size:16px;font-weight:600;color:#c9c9c9;">📣 Follow us for more Updates</p>
+        <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" style="display:block;background:linear-gradient(to right, #ff1a1a, #d60000);padding:15px;text-align:center;border-radius:14px;text-decoration:none;color:#fff;font-size:17px;font-weight:700;">🚀 Join Telegram</a>
+    </div>
+
+    <div style="background:#1a1a1a;padding:20px;border-radius:20px;">
+        <p style="margin:0 0 12px;font-size:16px;font-weight:600;color:#c9c9c9;">🔗 Share Stream</p>
+        <button onclick="sharePageLink()" style="display:block;width:100%;border:none;cursor:pointer;background:linear-gradient(to right, #ff1a1a, #d60000);padding:15px;text-align:center;border-radius:14px;color:#fff;font-size:17px;font-weight:700;">📤 Share This Page Link</button>
     </div>
 </div>
 
 <div class="sidebar" id="sidebar">
-  <div style="padding:20px; font-weight:bold; font-size:20px; border-bottom:1px solid #333;">MENU</div>
-  <a href="#">Home</a>
-  <a href="https://t.me/+rwZKMV0-L8wyOTll">Telegram</a>
-  <a href="#">Contact</a>
+  <div class="menu-header">menu</div>
+  <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank">join our telegram</a>
+  <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank">contact us</a>
+  <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank">copyright</a>
+  <a href="#" onclick="showVisitorPopup(); toggleSidebar();">total visitor</a>
 </div>
+
 <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
 <script>
-function toggleSidebar() {
+  function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('open');
     document.getElementById('overlay').classList.toggle('show');
-}
-function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-}
-</script>
+  }
 
+  function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+  }
+
+  function showVisitorPopup() {
+    document.getElementById("visitorPopup").style.display = "flex";
+  }
+
+  function closeVisitorPopup() {
+    document.getElementById("visitorPopup").style.display = "none";
+  }
+
+  async function sharePageLink() {
+    const shareData = {
+      title: 'CRICKET YODDHA',
+      text: 'Watch Live Cricket Match here: CRICKET YODDHA! 🏏',
+      url: window.location.href,
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Link copied!");
+      }
+    } catch (err) { console.log(err); }
+  }
+</script>
 </body>
 </html>
+
 
 
 
