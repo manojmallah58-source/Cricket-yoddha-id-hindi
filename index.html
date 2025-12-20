@@ -3,174 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CRICKET YODDHA - LIVE</title>
+  <title>CRICKET YODDHA</title>
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* CSS FOR SCREENSHOT MATCHING DESIGN */
     html, body {
       margin: 0;
       padding: 0;
-      background-color: #000000; /* Pure Black Background as per screenshot */
+      background: #0a0a0a;
       font-family: 'Poppins', sans-serif;
-      color: #ffffff;
       overflow-x: hidden;
+      color: #e0e0e0;
     }
 
-    /* Header Styling */
     header {
       position: fixed;
-      top: 0;
-      width: 100%;
+      top: 0; left: 0; right: 0;
       height: 70px;
-      background: #0a0a0a;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
-      border-bottom: 1px solid #1a1a1a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 9999;
     }
 
-    header img {
-      height: 45px;
-    }
+    header img { height: 50px; }
 
     .menu-icon {
-      position: absolute;
-      left: 15px;
-      font-size: 32px;
-      cursor: pointer;
-      color: #fff;
+      position: absolute; left: 16px; color: #fff; font-size: 30px; cursor: pointer;
     }
 
-    /* Video Section */
-    .video-section {
-      margin-top: 70px;
+    .video-container {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16/9;
       background: #000;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      margin-top: 70px;
     }
 
-    .video-section iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    .video-container iframe {
+      width: 100%; height: 100%; border: none;
     }
 
-    /* Ad Banner Container */
-    .banner-container {
+    /* Banner Styling */
+    .ad-container {
       width: 100%;
       display: flex;
       justify-content: center;
-      margin: 15px 0;
-      min-height: 90px;
+      align-items: center;
+      padding: 10px 0;
+      background: #000;
+      overflow: hidden;
     }
 
-    /* Content Area with Cards */
-    .content-wrapper {
-      padding: 0 15px;
-      max-width: 600px;
-      margin: 0 auto;
+    .ad-wrapper {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Action Cards */
+    .content-section {
+      padding: 15px;
+      background: #000;
     }
 
     .card {
-      background: #111111; /* Dark grey cards from screenshot */
-      border-radius: 25px; /* High curvature */
+      background: #151515;
+      border-radius: 25px;
       padding: 25px 20px;
       margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      text-align: center;
     }
 
-    .card-label {
-      font-size: 17px;
+    .card-title {
+      font-size: 18px;
       font-weight: 500;
       margin-bottom: 15px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      color: #cccccc;
+      justify-content: center;
+      gap: 10px;
     }
 
-    /* Red Gradient Buttons - EXACT MATCH */
-    .action-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .btn {
+      display: block;
       width: 100%;
       padding: 16px;
-      background: linear-gradient(180deg, #ff0000 0%, #b30000 100%);
-      border: none;
-      border-radius: 18px;
-      color: #ffffff;
-      font-size: 19px;
-      font-weight: 700;
+      border-radius: 15px;
       text-decoration: none;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .action-btn:active {
-      transform: scale(0.96);
-    }
-
-    /* Sidebar Menu */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -280px;
-      width: 260px;
-      height: 100%;
-      background: #0f0f0f;
-      z-index: 2000;
-      transition: 0.3s ease-in-out;
-      padding-top: 80px;
-      box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-    }
-
-    .sidebar.active {
-      left: 0;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: none;
-      z-index: 1500;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    .side-link {
       color: #fff;
-      text-decoration: none;
-      display: block;
-      padding: 15px 20px;
-      border-bottom: 1px solid #222;
-      font-weight: 500;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-red {
+      background: #ff0000;
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed; top: 0; left: -300px; width: 280px; height: 100%;
+      background: rgba(20, 20, 20, 0.95);
+      backdrop-filter: blur(15px);
+      z-index: 10001; transition: 0.4s;
+      padding-top: 80px;
+    }
+    .sidebar.open { left: 0; }
+    .sidebar a {
+      display: block; padding: 15px 25px; color: #fff; text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 10000; display: none;
+    }
+    .overlay.show { display: block; }
   </style>
 </head>
 <body>
 
-  <header>
-    <span class="material-icons menu-icon" onclick="toggleMenu()">menu</span>
-    <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="CRICKET YODDHA">
-  </header>
+<header>
+  <span class="material-icons menu-icon" onclick="toggleSidebar()">menu</span>
+  <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="Logo">
+</header>
 
-  <div class="video-section">
-    <iframe src="https://cricketstan.github.io/channel-10" allowfullscreen></iframe>
-  </div>
+<div class="video-container">
+  <iframe src="https://cricketstan.github.io/channel-10" allowfullscreen></iframe>
+</div>
 
-  <div class="banner-container">
+<div class="ad-container">
+  <div class="ad-wrapper">
     <script type="text/javascript">
       atOptions = {
         'key' : '13efb179005d71679640ac291f032628',
@@ -182,32 +152,22 @@
     </script>
     <script type="text/javascript" src="https://www.highperformanceformat.com/13efb179005d71679640ac291f032628/invoke.js"></script>
   </div>
+</div>
 
-  <div class="content-wrapper">
-    
-    <div class="card">
-      <div class="card-label">
-        <span class="material-icons" style="color:#ff3b3b;">campaign</span>
-        Follow us for more Updates
-      </div>
-      <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="action-btn">
-        🚀 Join Telegram
-      </a>
-    </div>
-
-    <div class="card">
-      <div class="card-label">
-        <span class="material-icons" style="color:#ff3b3b;">link</span>
-        Share Stream
-      </div>
-      <button onclick="shareLink()" class="action-btn">
-        📤 Share This Page Link
-      </button>
-    </div>
-
+<div class="content-section">
+  <div class="card">
+    <div class="card-title">📣 Follow us for more Updates</div>
+    <a href="https://t.me/+rwZKMV0-L8wyOTll" class="btn btn-red">🚀 Join Telegram</a>
   </div>
 
-  <div class="banner-container">
+  <div class="card">
+    <div class="card-title">🔗 Share Stream</div>
+    <button onclick="sharePageLink()" class="btn btn-red">📤 Share This Page Link</button>
+  </div>
+</div>
+
+<div class="ad-container">
+  <div class="ad-wrapper">
     <script type="text/javascript">
       atOptions = {
         'key' : '13efb179005d71679640ac291f032628',
@@ -219,46 +179,40 @@
     </script>
     <script type="text/javascript" src="https://www.highperformanceformat.com/13efb179005d71679640ac291f032628/invoke.js"></script>
   </div>
+</div>
 
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-  <div class="sidebar" id="sidebar">
-    <div style="padding: 20px; font-weight: bold; color: #ff0000; font-size: 20px;">MENU</div>
-    <a href="#" class="side-link">Home</a>
-    <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="side-link">Join Telegram</a>
-    <a href="#" class="side-link">Contact Us</a>
-  </div>
+<div class="sidebar" id="sidebar">
+  <a href="#">Home</a>
+  <a href="https://t.me/+rwZKMV0-L8wyOTll">Telegram</a>
+  <a href="#">Contact Us</a>
+</div>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-  <script>
-    // Sidebar Logic
-    function toggleMenu() {
-      document.getElementById('sidebar').classList.toggle('active');
-      document.getElementById('overlay').classList.toggle('active');
-    }
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+  }
 
-    // Share Function
-    function shareLink() {
-      const shareData = {
-        title: 'CRICKET YODDHA',
-        text: 'Watch Live Cricket Match here! 🏏',
-        url: window.location.href
-      };
-
+  async function sharePageLink() {
+    const shareData = {
+      title: 'CRICKET YODDHA',
+      text: 'Watch Live Cricket Match here! 🏏',
+      url: window.location.href,
+    };
+    try {
       if (navigator.share) {
-        navigator.share(shareData).catch(err => console.log('Error sharing:', err));
+        await navigator.share(shareData);
       } else {
-        // Fallback: Copy to Clipboard
-        const dummy = document.createElement('input');
-        document.body.appendChild(dummy);
-        dummy.value = window.location.href;
-        dummy.select();
-        document.execCommand('copy');
-        document.body.removeChild(dummy);
-        alert('Link Copied to Clipboard! 🚀');
+        navigator.clipboard.writeText(window.location.href);
+        alert("Link Copied!");
       }
-    }
-  </script>
+    } catch (err) { console.log(err); }
+  }
+</script>
 
 </body>
 </html>
+
 
 
