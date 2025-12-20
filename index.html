@@ -15,7 +15,6 @@ body {
   color: white;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 /* Popup - Initially Hidden */
@@ -27,7 +26,7 @@ body {
   display: none; /* JavaScript handle karega */
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 9999; /* Isko sabse upar rakha hai */
 }
 
 .popup-box {
@@ -89,6 +88,10 @@ body {
   transition: 0.3s;
 }
 
+.btn-joined:hover {
+  background: #333;
+}
+
 /* Video Section */
 #video-box {
   display: block;
@@ -100,9 +103,30 @@ body {
 iframe {
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  background-color: #000;
   position: absolute;
   top: 0; left: 0;
   border: 0;
+}
+
+/* Loading screen */
+#loading {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ff0000;
+  font-size: 20px;
+  text-align: center;
+  display: block;
+  z-index: 5;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
 }
 </style>
 </head>
@@ -121,20 +145,31 @@ iframe {
 </div>
 
 <div id="video-box">
+  <div id="loading">⏳ Please Wait...<br>Loading Stream</div>
   <iframe id="iframe"
-    src="https://tvgo.neocities.org/APPTV/jspo?id=Star1%20Hindi%20HD"
+    src=""
     width="100%" height="100%"
     frameborder="0"
     webkitAllowFullScreen
     mozallowfullscreen
     allowfullscreen
-    allow="autoplay; encrypted-media; gyroscope; picture-in-picture">
+    allow="autoplay; encrypted-media; gyroscope; picture-in-picture"
+    loading="lazy">
   </iframe>
 </div>
 
 <script>
+// Function to start everything
 function initPage() {
-  // 1 minute (60,000 ms) ke baad popup dikhane ka timer
+  // 1. Stream start karein
+  const iframe = document.getElementById("iframe");
+  iframe.src = "https://tvgo.neocities.org/APPTV/jspo?id=Star1%20Hindi%20HD";
+
+  iframe.onload = function() {
+    document.getElementById("loading").style.display = "none";
+  };
+
+  // 2. 1 minute (60,000 ms) baad popup dikhayein
   setTimeout(function() {
     document.getElementById("popup").style.display = "flex";
   }, 60000);
@@ -151,6 +186,7 @@ function closePopup(){
 
 </body>
 </html>
+
 
 
 
