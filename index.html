@@ -234,11 +234,12 @@
 </div>
   <header>
 <span class="material-icons menu-icon" onclick="toggleSidebar()">menu</span>
+    <!-- =========== LOGO UPDATED AS PER YOUR REQUEST ============ -->
     <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" alt="Logo">
   </header>
 <div class="video-container">
   <iframe
-    src="https://tv4wab.pages.dev/?id=1998&name=jiohd"
+    src="https://dillzycreations.github.io/Star-Sports-Hindi/"
     frameborder="0"
     allowfullscreen
     allow="autoplay; encrypted-media"
@@ -246,25 +247,27 @@
   ></iframe>
 </div>
 
-<div style="background:#000;padding:20px;font-family:'Poppins', sans-serif;color:#fff;">
+<!-- =========== DESIGN UPDATED BASED ON IMAGE ============ -->
+<div style="background:#000; padding:20px 15px; font-family:'Poppins', sans-serif; color:#fff;">
 
+    <!-- Channel Info Block -->
     <div style="
-        background:#111;
-        padding:18px 20px;
-        border-radius:18px;
+        background:#212121;
+        padding:15px 20px;
+        border-radius:12px;
         display:flex;
         justify-content:space-between;
         align-items:center;
-        margin-bottom:25px;
+        margin-bottom:20px;
     ">
-        <h2 style="margin:0;font-size:24px;font-weight:600;">Star Sports Hindi</h2>
+        <h2 style="margin:0; font-size:20px; font-weight:600;">STAR SPORTS HINDI>STAR
 
         <div style="
             background:#d1001f;
             padding:6px 16px;
-            border-radius:20px;
+            border-radius:8px;
             font-size:14px;
-            font-weight:700;
+            font-weight:600;
             display:flex;
             align-items:center;
         ">
@@ -272,70 +275,78 @@
         </div>
     </div>
 
+<!-- Telegram Block -->
     <div style="
-        background:#1a1a1a;
-        padding:20px;
-        border-radius:20px;
-        margin-bottom:25px;
+        background:#212121;
+        padding:18px 20px;
+        border-radius:12px;
+        margin-bottom:20px;
     ">
         <p style="
-            margin:0 0 12px;
+            margin:0 0 15px;
             font-size:16px;
-            font-weight:600;
+            font-weight:500;
             color:#c9c9c9;
+            text-align:center;
         ">
-            📣 Follow us for more Updates
+            🔔 Follow us for Updates!
         </p>
 
 <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" style="
             display:block;
-            background:linear-gradient(to right, #ff1a1a, #d60000);
-            padding:15px;
+            background:#d1001f;
+            padding:14px;
             text-align:center;
-            border-radius:14px;
+            border-radius:10px;
             text-decoration:none;
             color:#fff;
-            font-size:17px;
-            font-weight:700;
-            box-shadow:0 0 12px rgba(255,0,0,0.28);
+            font-size:16px;
+            font-weight:600;
         ">
-            🚀  Join Telegram
+            <!-- Material Icons can be used for Telegram icon if needed -->
+            Click Here To Join Telegram
         </a>
     </div>
 
+    <!-- Share Block -->
     <div style="
-        background:#1a1a1a;
-        padding:20px;
-        border-radius:20px;
+        background:#212121;
+        padding:18px 20px;
+        border-radius:12px;
     ">
         <p style="
-            margin:0 0 12px;
+            margin:0 0 15px;
             font-size:16px;
-            font-weight:600;
+            font-weight:500;
             color:#c9c9c9;
+            text-align:center;
         ">
-            🔗 Share Stream
+            🔗 Copy Link & Share
         </p>
 
         <button onclick="sharePageLink()" style="
             display:block;
-            width: 100%; /* Important for button to fill width */
+            width: 100%;
             border: none;
             cursor: pointer;
-            background:linear-gradient(to right, #ff1a1a, #d60000);
-            padding:15px;
+            background:#d1001f;
+            padding:14px;
             text-align:center;
-            border-radius:14px;
+            border-radius:10px;
             text-decoration:none;
             color:#fff;
-            font-size:17px;
-            font-weight:700;
-            box-shadow:0 0 12px rgba(255,0,0,0.28);
+            font-size:16px;
+            font-weight:600;
+            font-family:'Poppins', sans-serif;
         ">
-            📤  Share This Page Link
+            <!-- Material Icons can be used for Share icon if needed -->
+            Click Here To Share This Page Link
         </button>
     </div>
 </div>
+<!-- =========== END OF UPDATED DESIGN ============ -->
+
+
 <div class="sidebar" id="sidebar">
   <div class="menu-header">MENU</div>
   <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank"> Join Our Telegram</a>
@@ -351,20 +362,7 @@
     const jsonUrl = 'https://raw.githubusercontent.com/StmpupCricket/Star-Sports-Hindi-json/refs/heads/main/data.json';
     const telegramLink = 'https://t.me/+rwZKMV0-L8wyOTll';
 
-    // Original HLS/Plyr code kept here for functional completeness, 
-    // although the main video display uses the iframe.
-    /*
-    fetch(jsonUrl)
-      .then(res => res.json())
-      .then(data => {
-        // ... HLS/Plyr logic
-      })
-      .catch(err => {
-        console.error('Failed to load stream:', err);
-      });
-    */
-
-function toggleSidebar() {
+    function toggleSidebar() {
 
 document.getElementById('sidebar').classList.toggle('open');
     document.getElementById('overlay').classList.toggle('show');
@@ -392,25 +390,20 @@ function showVisitorPopup() {
 async function sharePageLink() {
     const shareData = {
         title: 'CRICKET YODDHA - Live Match',
-        // English Translation of the share text
         text: 'Watch Live Cricket Match here: CRICKET YODDHA! 🏏\n\nJoin our Telegram Channel for updates: ' + telegramLink,
         url: window.location.href,
     };
 
     try {
         if (navigator.share) {
-            // Use Web Share API for modern browsers
             await navigator.share(shareData);
         } else {
-            // Fallback for older browsers: Copy link to clipboard
             await navigator.clipboard.writeText(shareData.text + '\n\nLink: ' + shareData.url);
 
-// English Translation of the alert message
-            alert("Link and sharing text copied! You can now share it anywhere.");
+alert("Link and sharing text copied! You can now share it anywhere.");
         }
     } catch (err) {
         console.error('Share failed:', err);
-        // English Translation of the error alert
         alert('There was an issue sharing. Please copy the link manually.');
     }
 }
