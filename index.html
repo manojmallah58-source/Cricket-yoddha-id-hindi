@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>CRICKET YODDHA - Live Stream</title>
+  <title>CRICKET YODDHA - Premium Live</title>
   
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-dark: #000000;
+      --bg-dark: #050505;
+      --bg-card: #111111;
       --gold-main: #FFD700;
-      --gold-dark: #FFAA00;
+      --gold-glow: rgba(255, 215, 0, 0.4);
       --text-white: #ffffff;
-      --border-color: rgba(255, 255, 255, 0.1);
+      --text-gray: #b0b0b0;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --accent-red: #ff3b3b;
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; user-select: none; }
@@ -22,7 +25,8 @@
     body {
       margin: 0; padding: 0;
       background-color: var(--bg-dark);
-      font-family: 'Poppins', sans-serif;
+      background-image: radial-gradient(circle at top center, #1a1500, #000000 60%);
+      font-family: 'Outfit', sans-serif;
       color: var(--text-white);
       padding-bottom: 80px;
       overflow-x: hidden;
@@ -30,151 +34,193 @@
 
     /* HEADER */
     header {
-      position: fixed; top: 0; width: 100%; height: 65px;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(10px);
+      position: fixed; top: 0; width: 100%; height: 60px;
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-color);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 20px; z-index: 1000;
+      padding: 0 16px; z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
 
-    .menu-icon { font-size: 28px; color: #fff; cursor: pointer; }
-    .logo-container { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-    .logo-img { height: 40px; filter: drop-shadow(0 0 5px rgba(255,215,0,0.5)); }
+    .menu-icon { font-size: 26px; color: #fff; cursor: pointer; transition: 0.2s; }
+    .menu-icon:active { color: var(--gold-main); }
+    
+    .logo-container { 
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); 
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo-img { height: 32px; filter: drop-shadow(0 0 8px rgba(255,215,0,0.3)); }
+    .logo-text { font-family: 'Rajdhani'; font-weight: 800; font-size: 18px; color: #fff; letter-spacing: 1px; }
+    .logo-text span { color: var(--gold-main); }
 
     .header-live {
-      display: flex; align-items: center; gap: 5px;
-      background: rgba(255,0,0,0.15); border: 1px solid rgba(255,0,0,0.4);
-      padding: 4px 8px; border-radius: 4px;
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255, 59, 59, 0.1); 
+      border: 1px solid rgba(255, 59, 59, 0.3);
+      padding: 4px 10px; border-radius: 20px;
     }
-    .h-dot { width: 8px; height: 8px; background: red; border-radius: 50%; animation: blink 1s infinite; }
-    .h-text { font-size: 12px; font-weight: 700; color: red; font-family: 'Rajdhani'; letter-spacing: 1px; }
+    .h-dot { width: 6px; height: 6px; background: var(--accent-red); border-radius: 50%; box-shadow: 0 0 8px var(--accent-red); animation: blink 1s infinite; }
+    .h-text { font-size: 11px; font-weight: 700; color: var(--accent-red); font-family: 'Rajdhani'; letter-spacing: 0.5px; }
     @keyframes blink { 50% { opacity: 0.4; } }
 
-    /* VIDEO */
+    /* VIDEO SECTION */
+    .video-wrapper {
+      margin-top: 60px; width: 100%; position: relative;
+      background: #000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
     .video-container {
-      margin-top: 65px; width: 100%; aspect-ratio: 16/9;
-      background: #000; border-bottom: 1px solid var(--border-color);
+      width: 100%; aspect-ratio: 16/9;
+      position: relative; overflow: hidden;
     }
     .video-container iframe { width: 100%; height: 100%; border: none; display: block; }
+    
+    /* Elegant Bottom Border for Video */
+    .video-bar { height: 3px; width: 100%; background: linear-gradient(90deg, transparent, var(--gold-main), transparent); opacity: 0.7; }
 
     /* TICKER */
     .ticker-wrap {
-      background: var(--gold-main); height: 30px; overflow: hidden;
-      display: flex; align-items: center; border-bottom: 1px solid #000;
+      background: #0a0a0a; height: 32px; overflow: hidden;
+      display: flex; align-items: center; border-bottom: 1px solid var(--border-color);
+      position: relative;
     }
+    .ticker-wrap::before, .ticker-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 20px; z-index: 2;
+    }
+    .ticker-wrap::before { left: 0; background: linear-gradient(90deg, #0a0a0a, transparent); }
+    .ticker-wrap::after { right: 0; background: linear-gradient(-90deg, #0a0a0a, transparent); }
+    
     .ticker-text {
-      color: #000; font-weight: 800; font-family: 'Rajdhani'; font-size: 13px;
-      white-space: nowrap; animation: scroll 20s linear infinite; padding-left: 100%;
+      color: var(--gold-main); font-weight: 600; font-family: 'Rajdhani'; font-size: 13px; letter-spacing: 0.5px;
+      white-space: nowrap; animation: scroll 25s linear infinite; padding-left: 100%;
     }
     @keyframes scroll { 100% { transform: translateX(-100%); } }
 
-    /* MAIN ACTIONS */
-    .action-section { padding: 25px 15px; background: #0a0a0a; }
+    /* MAIN ACTIONS AREA */
+    .action-section { padding: 20px 16px; max-width: 600px; margin: 0 auto; }
 
-    /* LIVE WATCHING CARD */
-    .live-stats-card {
-      background: #111;
-      border: 1px solid var(--border-color);
-      border-radius: 12px; padding: 15px;
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    /* MODERN STATS CARD */
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px;
     }
-
-    .live-left { display: flex; align-items: center; gap: 10px; }
-    .live-icon-box {
-      width: 40px; height: 40px; background: rgba(255,255,255,0.05);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    }
-    .live-icon-box i { color: var(--gold-main); font-size: 20px; }
     
-    .live-info { display: flex; flex-direction: column; }
-    .live-number { font-size: 20px; font-weight: 700; color: #fff; font-family: 'Rajdhani'; line-height: 1; }
-    .live-label { font-size: 11px; color: #888; text-transform: uppercase; margin-top: 2px; }
-
-    .live-badge-right {
-      background: #ff0000; color: #fff;
-      padding: 4px 8px; border-radius: 4px;
-      font-size: 10px; font-weight: 800; letter-spacing: 0.5px;
-      display: flex; align-items: center; gap: 4px;
-      box-shadow: 0 0 10px rgba(255,0,0,0.4);
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 16px; padding: 15px;
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: center;
+      backdrop-filter: blur(5px);
     }
-    .live-badge-right .dot { width: 5px; height: 5px; background: #fff; border-radius: 50%; animation: blink 1s infinite; }
+    .stat-card::after {
+      content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px;
+      background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .stat-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .stat-icon { font-size: 16px; color: var(--gold-main); }
+    .stat-title { font-size: 11px; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    
+    .stat-value { font-size: 24px; font-weight: 800; color: #fff; font-family: 'Rajdhani'; line-height: 1; }
+    .live-badge { 
+      font-size: 9px; color: var(--accent-red); background: rgba(255,0,0,0.1); 
+      padding: 2px 6px; border-radius: 4px; display: inline-block; margin-left: auto; font-weight: 700;
+    }
 
     /* BUTTONS */
-    .btn-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 10px; }
+    .btn-group { display: flex; flex-direction: column; gap: 12px; }
 
-    .btn {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 12px 5px; border-radius: 10px; text-decoration: none;
-      transition: 0.2s; position: relative;
+    .btn-main {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-radius: 14px; text-decoration: none;
+      background: linear-gradient(90deg, var(--gold-main), #e6c200);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+      transition: transform 0.2s;
     }
-    .btn:active { transform: scale(0.96); }
-
-    .btn-gold {
-      background: linear-gradient(135deg, var(--gold-main), var(--gold-dark));
-      border: none; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+    .btn-main:active { transform: scale(0.98); }
+    
+    .btn-content { display: flex; align-items: center; gap: 12px; }
+    .btn-icon-circle { 
+      width: 36px; height: 36px; background: rgba(0,0,0,0.1); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; 
     }
-    .btn-gold i { color: #000; font-size: 24px; margin-bottom: 2px; }
-    .btn-gold span { color: #000; font-weight: 800; font-size: 12px; text-transform: uppercase; font-family: 'Rajdhani'; }
+    .btn-icon-circle i { color: #000; font-size: 20px; margin-right: 2px; margin-top: 2px;} 
+    
+    .btn-text h3 { margin: 0; color: #000; font-size: 15px; font-weight: 800; font-family: 'Rajdhani'; text-transform: uppercase; }
+    .btn-text p { margin: 0; color: #333; font-size: 10px; font-weight: 600; }
+    .btn-arrow { color: #000; font-size: 20px; }
 
-    .btn-dark {
-      background: #1a1a1a; border: 1px solid var(--border-color);
+    .btn-secondary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-sec {
+      background: #151515; border: 1px solid var(--border-color);
+      padding: 12px; border-radius: 12px; text-decoration: none;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: 0.2s;
     }
-    .btn-dark i { color: #ccc; font-size: 20px; margin-bottom: 2px; }
-    .btn-dark span { color: #ccc; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+    .btn-sec:active { background: #222; }
+    .btn-sec i { font-size: 18px; color: #ccc; }
+    .btn-sec span { font-size: 12px; color: #ccc; font-weight: 600; }
 
-    /* POPUP (No X, Clean) */
+    /* POPUP */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85);
       z-index: 9999; display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: 0.4s;
-      backdrop-filter: blur(5px);
+      opacity: 0; pointer-events: none; transition: 0.4s; backdrop-filter: blur(8px);
     }
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
     .modal-box {
-      width: 85%; max-width: 320px;
-      background: #181818; border: 1px solid #333;
-      border-radius: 20px; padding: 30px 20px; text-align: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-      transform: translateY(20px); transition: 0.4s;
+      width: 85%; max-width: 340px;
+      background: #121212; border: 1px solid #333;
+      border-radius: 24px; padding: 30px 25px; text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      transform: scale(0.9); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .modal-overlay.active .modal-box { transform: translateY(0); }
+    .modal-overlay.active .modal-box { transform: scale(1); }
 
-    .pop-title { color: var(--gold-main); font-size: 26px; font-weight: 800; margin: 0 0 10px; font-family: 'Poppins', sans-serif; }
-    .pop-desc { color: #aaa; font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
+    .pop-icon { 
+      width: 60px; height: 60px; background: rgba(255, 215, 0, 0.1); 
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 15px;
+    }
+    .pop-icon i { font-size: 30px; color: var(--gold-main); }
+    
+    .pop-title { color: #fff; font-size: 20px; font-weight: 700; margin: 0 0 8px; font-family: 'Rajdhani'; letter-spacing: 0.5px; }
+    .pop-desc { color: #888; font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
 
     .pop-btn {
-      display: block; width: 100%; padding: 14px; border-radius: 50px;
-      text-decoration: none; font-weight: 700; font-size: 16px; 
-      margin-bottom: 12px; text-transform: capitalize; letter-spacing: 0.5px;
-      transition: transform 0.2s, box-shadow 0.2s;
+      display: block; width: 100%; padding: 14px; border-radius: 12px;
+      text-decoration: none; font-weight: 700; font-size: 14px; 
+      transition: 0.2s; cursor: pointer;
     }
-    .pop-btn:active { transform: scale(0.95); }
-
-    .pb-join { background: var(--gold-main); color: #000; box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2); }
-    .pb-close { background: #252525; color: #fff; border: 1px solid #333; cursor: pointer; }
+    .pb-join { background: var(--gold-main); color: #000; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(255,215,0,0.2); }
+    .pb-close { background: transparent; color: #666; border: 1px solid #333; }
+    .pb-close:active { background: #222; color: #fff; }
 
     /* SIDEBAR */
     .sidebar {
       position: fixed; left: -100%; top: 0; width: 280px; height: 100%;
-      background: #111; z-index: 5000; transition: 0.3s; border-right: 1px solid #222;
+      background: #0f0f0f; z-index: 5000; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-right: 1px solid #222;
     }
     .sidebar.open { left: 0; }
-    .sb-head { padding: 25px; color: var(--gold-main); font-size: 22px; font-weight: 700; border-bottom: 1px solid #222; font-family: 'Rajdhani'; }
-    
-    .sb-link {
-      display: flex; align-items: center; gap: 15px; padding: 15px 25px;
-      color: #ccc; text-decoration: none; font-size: 14px; border-bottom: 1px solid #1a1a1a;
-    }
-    .sb-link i { font-size: 20px; color: var(--gold-main); }
-    .insta-link i { color: #E1306C; }
+    .sb-header { padding: 30px 25px; border-bottom: 1px solid #222; background: #0a0a0a; }
+    .sb-logo { font-family: 'Rajdhani'; font-size: 24px; font-weight: 800; color: #fff; }
+    .sb-logo span { color: var(--gold-main); }
 
-    .sb-stats { margin: 20px; padding: 15px; background: #1a1a1a; border-radius: 8px; margin-left: 15px; margin-right: 15px;}
-    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 4999; display: none; }
-    .overlay.active { display: block; }
+    .sb-link {
+      display: flex; align-items: center; gap: 15px; padding: 18px 25px;
+      color: #ccc; text-decoration: none; font-size: 14px; font-weight: 500;
+      transition: 0.2s; border-bottom: 1px solid #1a1a1a;
+    }
+    .sb-link:active { background: #1a1a1a; color: var(--gold-main); }
+    .sb-link i { color: #555; font-size: 20px; transition: 0.2s; }
+    .sb-link:active i { color: var(--gold-main); }
+    
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 4999; opacity: 0; pointer-events: none; transition: 0.3s; }
+    .overlay.active { opacity: 1; pointer-events: auto; }
 
   </style>
 </head>
@@ -183,18 +229,19 @@
   <!-- POPUP -->
   <div class="modal-overlay" id="popup">
     <div class="modal-box">
-      <div class="pop-title">Support Us!</div>
-      <div class="pop-desc">Join our Telegram for more link & update.</div>
-      <a href="#" id="pop-link" class="pop-btn pb-join">Join Now</a>
-      <button class="pop-btn pb-close" onclick="closePopup()">Already Joined</button>
+      <div class="pop-icon"><i class="material-icons">telegram</i></div>
+      <div class="pop-title">Join for Backup Links!</div>
+      <div class="pop-desc">Don't miss a single ball. Join our official channel for HD links and live updates.</div>
+      <a href="#" id="pop-link" class="pop-btn pb-join">Join Telegram Channel</a>
+      <button class="pop-btn pb-close" onclick="closePopup()">I'm already in</button>
     </div>
   </div>
 
   <!-- HEADER -->
   <header>
-    <div class="menu-icon material-icons" onclick="toggleMenu()">menu</div>
+    <div class="menu-icon material-icons" onclick="toggleMenu()">notes</div>
     <div class="logo-container">
-      <img src="https://i.ibb.co/HLkW7zJV/ei-1765534270242-removebg-preview.png" class="logo-img" alt="Logo">
+      <span class="logo-text">CRICKET <span> YODDHA</span></span>
     </div>
     <div class="header-live">
       <div class="h-dot"></div> <span class="h-text">LIVE</span>
@@ -203,61 +250,81 @@
 
   <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
-    <div class="sb-head">CRICKET YODDHA</div>
-    <a href="#" id="side-tg" class="sb-link"><i class="material-icons">telegram</i> Join Telegram</a>
-    <a href="https://www.instagram.com/cricket_yoddha?igsh=MWpoZDltdjZzYnRncw==" class="sb-link insta-link"><i class="material-icons">camera_alt</i> Contact Us (Insta)</a>
-    <a href="javascript:location.reload()" class="sb-link"><i class="material-icons">refresh</i> Refresh Page</a>
-    <div class="sb-stats">
-      <div style="font-size:10px; color:#888; text-transform:uppercase;">Daily Visitors</div>
-      <div style="font-size:20px; font-weight:700; color:#fff;" id="total-views-count">...</div>
+    <div class="sb-header">
+      <div class="sb-logo">CRICKET<span>YODDHA</span></div>
     </div>
+    <a href="#" id="side-tg" class="sb-link"><i class="material-icons">send</i> Join Telegram</a>
+    <a href="https://www.instagram.com/cricket_yoddha?igsh=MWpoZDltdjZzYnRncw==" class="sb-link"><i class="material-icons">camera_alt</i> Instagram</a>
+    <a href="javascript:location.reload()" class="sb-link"><i class="material-icons">refresh</i> Refresh Page</a>
+    <a href="javascript:sharePage()" class="sb-link"><i class="material-icons">share</i> Share App</a>
   </div>
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <!-- VIDEO -->
-  <div class="video-container">
-    <iframe src="https://cricket-yoddha.vercel.app/?url=https://allinonereborn.xyz/amit/hls2.php" allowfullscreen allow="autoplay; encrypted-media" scrolling="no"></iframe>
+  <div class="video-wrapper">
+    <div class="video-container">
+      <iframe src="https://cricket-yoddha.vercel.app/?url=https://allinonereborn.xyz/amit/hls2.php" allowfullscreen allow="autoplay; encrypted-media" scrolling="no"></iframe>
+    </div>
+    <div class="video-bar"></div>
   </div>
 
   <!-- TICKER -->
   <div class="ticker-wrap">
     <div class="ticker-text">
-       EVERYONE MUST SHARE THE LINK 🔗 | JOIN TELEGRAM FOR BACKUP LINKS 📲 | WATCH HD LIVE STREAMING WITHOUT BUFFERING 🏏🔥
+       WELCOME TO CRICKET YODDHA 🏏 | JOIN TELEGRAM FOR 4K LINKS 🔗 | SHARE THIS LINK WITH FRIENDS 🔥 | NO BUFFERING HD STREAM
     </div>
   </div>
 
   <!-- ACTIONS -->
   <div class="action-section">
     
-    <!-- LIVE WATCHING SECTION -->
-    <div class="live-stats-card">
-      <div class="live-left">
-        <div class="live-icon-box"><i class="material-icons">visibility</i></div>
-        <div class="live-info">
-          <span class="live-number" id="live-viewer-count">0</span>
-          <span class="live-label">Watching Now</span>
+    <!-- STATS GRID -->
+    <div class="stats-grid">
+      <!-- Live Watching Card -->
+      <div class="stat-card">
+        <div class="stat-header">
+          <i class="material-icons stat-icon">visibility</i>
+          <span class="stat-title">Watching</span>
+          <span class="live-badge">LIVE</span>
         </div>
+        <div class="stat-value" id="live-viewer-count">...</div>
       </div>
-      <div class="live-badge-right">
-        <div class="dot"></div> LIVE
+
+      <!-- Total Views Card -->
+      <div class="stat-card">
+        <div class="stat-header">
+          <i class="material-icons stat-icon">bar_chart</i>
+          <span class="stat-title">Daily Views</span>
+        </div>
+        <div class="stat-value" id="total-views-count">...</div>
       </div>
     </div>
 
-    <!-- BUTTONS -->
-    <div class="btn-grid">
-      <a href="#" id="main-btn" class="btn btn-gold">
-        <i class="material-icons">send</i>
-        <span>Join Telegram</span>
+    <!-- MAIN BUTTONS -->
+    <div class="btn-group">
+      <a href="#" id="main-btn" class="btn-main">
+        <div class="btn-content">
+          <div class="btn-icon-circle"><i class="material-icons">send</i></div>
+          <div class="btn-text">
+            <h3>Join Telegram</h3>
+            <p>For Link Backups & Updates</p>
+          </div>
+        </div>
+        <i class="material-icons btn-arrow">chevron_right</i>
       </a>
-      <a href="javascript:void(0)" onclick="sharePage()" class="btn btn-dark">
-        <i class="material-icons">share</i>
-        <span>Share</span>
-      </a>
-      <a href="javascript:location.reload()" class="btn btn-dark">
-        <i class="material-icons">refresh</i>
-        <span>Refresh</span>
-      </a>
+
+      <div class="btn-secondary-grid">
+        <a href="javascript:void(0)" onclick="sharePage()" class="btn-sec">
+          <i class="material-icons">share</i>
+          <span>Share</span>
+        </a>
+        <a href="javascript:location.reload()" class="btn-sec">
+          <i class="material-icons">refresh</i>
+          <span>Refresh</span>
+        </a>
+      </div>
     </div>
+
   </div>
 
   <!-- FIREBASE LOGIC -->
@@ -266,7 +333,9 @@
 
   <script>
     // ================= CONFIG =================
-    const WEBSITE_ID = "channel_hindi"; // Change this for other pages (channel_2, etc.)
+    // IMPORTANT: Changed WEBSITE_ID to a generic name to group stats, 
+    // but DB paths below are changed to 'status_live_new' to reset counters.
+    const WEBSITE_ID = "channel_hindi_v2"; 
     const TELEGRAM_LINK = "https://t.me/+rwZKMV0-L8wyOTll";
     // ==========================================
 
@@ -282,20 +351,22 @@
     // Popup Logic
     window.onload = () => {
       setTimeout(() => {
-        if(!sessionStorage.getItem('pop_final_' + WEBSITE_ID)) {
+        if(!sessionStorage.getItem('pop_shown_' + WEBSITE_ID)) {
           document.getElementById('popup').classList.add('active');
         }
-      }, 3000);
+      }, 2500);
     };
 
     function closePopup() {
       document.getElementById('popup').classList.remove('active');
-      sessionStorage.setItem('pop_final_' + WEBSITE_ID, 'true');
+      sessionStorage.setItem('pop_shown_' + WEBSITE_ID, 'true');
     }
 
     async function sharePage() {
-      if(navigator.share) await navigator.share({title:'Live Cricket', url: window.location.href});
-      else prompt("Copy Link:", window.location.href);
+      if(navigator.share) await navigator.share({title:'Watch Live Cricket HD', text: 'Watch Live Cricket HD without buffering!', url: window.location.href});
+      else {
+        prompt("Copy Link:", window.location.href);
+      }
     }
 
     // --- FIREBASE CONFIG ---
@@ -312,40 +383,44 @@
     if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // 1. REAL-TIME WATCHING LOGIC (Remove on Disconnect)
-    const liveRef = db.ref('status_live/' + WEBSITE_ID);
+    // 1. IMPROVED REAL-TIME WATCHING LOGIC
+    // Changed path to 'status_live_new' to clear old ghost data completely.
+    const liveRef = db.ref('status_live_new/' + WEBSITE_ID);
     const connectedRef = db.ref('.info/connected');
 
     connectedRef.on('value', (snap) => {
       if (snap.val() === true) {
-        // User connected: Create a reference
+        // Create a unique reference for this user session
         const userRef = liveRef.push();
         
-        // CRITICAL: Tells server to delete this reference if user disconnects (closes tab/browser)
+        // Remove this specific reference when user disconnects
         userRef.onDisconnect().remove();
         
-        // Set value to confirm presence
+        // Set value
         userRef.set({
             status: "online",
-            joinedAt: firebase.database.ServerValue.TIMESTAMP
+            ts: firebase.database.ServerValue.TIMESTAMP
         });
       }
     });
 
-    // Count live users
+    // Count live users accurately
     liveRef.on('value', (snap) => {
+      // If null (0 users), show 1 (the current user)
       const count = snap.numChildren();
-      document.getElementById('live-viewer-count').innerText = count;
+      // Animation for numbers (optional)
+      const displayCount = count < 1 ? 1 : count;
+      document.getElementById('live-viewer-count').innerText = displayCount.toLocaleString();
     });
 
-    // 2. DAILY VISITORS (Resets automatically by Date)
-    const todayStr = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-    const visitRef = db.ref('daily_stats/' + WEBSITE_ID + '/' + todayStr);
-    const localKey = 'v_count_' + WEBSITE_ID + '_' + todayStr;
+    // 2. DAILY VISITORS LOGIC
+    const todayStr = new Date().toISOString().slice(0, 10); 
+    const visitRef = db.ref('daily_stats_v2/' + WEBSITE_ID + '/' + todayStr);
+    const localKey = 'visited_' + WEBSITE_ID + '_' + todayStr;
 
-    // Increment only if new visitor for today
+    // Increment only once per day per user
     if(!localStorage.getItem(localKey)) {
-      visitRef.transaction(currentVisits => (currentVisits || 0) + 1);
+      visitRef.transaction(current => (current || 0) + 1);
       localStorage.setItem(localKey, 'true');
     }
 
