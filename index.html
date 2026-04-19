@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>CRICKET YODDHA - Premium</title>
+  <title>CRICKET YODDHA - Premium Live</title>
   
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Outfit:wght@400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
@@ -22,12 +22,31 @@
       font-family: 'Outfit', sans-serif;
       color: #fff;
       height: 100vh;
-      overflow: hidden; /* Scroll band karne ke liye */
+      overflow: hidden; 
       display: flex;
       flex-direction: column;
     }
 
-    /* HEADER - Slim */
+    /* POPUP STYLES (ENGLISH) */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+      z-index: 9999; display: none; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      width: 85%; max-width: 320px; background: #111; border: 1px solid #333;
+      border-radius: 20px; padding: 25px; text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,1);
+    }
+    .pop-icon { font-size: 50px; margin-bottom: 10px; display: block; }
+    .pop-title { font-family: 'Rajdhani'; color: var(--gold-main); font-size: 24px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; }
+    .pop-desc { font-size: 13px; color: #bbb; margin-bottom: 25px; line-height: 1.5; }
+    .pop-btn { display: block; width: 100%; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; font-size: 13px; font-family: 'Rajdhani'; transition: 0.3s; }
+    .pb-join { background: var(--gold-main); color: #000; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
+    .pb-close { background: transparent; color: #666; border: 1px solid #333; cursor: pointer; }
+
+    /* HEADER */
     header {
       height: 45px;
       background: #000;
@@ -62,14 +81,11 @@
     }
     @keyframes scroll { 100% { transform: translateX(-100%); } }
 
-    /* MAIN CONTENT AREA */
+    /* MAIN CONTENT */
     .main-content {
-      flex: 1;
-      padding: 8px 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; /* Items ko barabar distribute karne ke liye */
-      gap: 6px;
+      flex: 1; padding: 8px 12px;
+      display: flex; flex-direction: column;
+      justify-content: space-between; gap: 6px;
     }
 
     /* DAILY VIEWS */
@@ -88,7 +104,6 @@
       background: var(--gold-main); color: #000;
       text-decoration: none; padding: 10px 15px; border-radius: 12px;
       display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
     }
     .tg-content { display: flex; align-items: center; gap: 10px; }
     .tg-icon { width: 30px; height: 30px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
@@ -104,8 +119,8 @@
       font-weight: 700; font-size: 11px; text-transform: uppercase;
     }
 
-    /* --- PREMIUM BANNER (Adjusted for No-Scroll) --- */
-    .pfc-wrapper { margin: 2px 0; font-family: 'Montserrat', sans-serif; }
+    /* PREMIUM BANNER */
+    .pfc-wrapper { font-family: 'Montserrat', sans-serif; }
     .pfc-card {
         display: block; background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
         border: 2px solid #ffcc00; border-radius: 15px;
@@ -117,12 +132,9 @@
     .pfc-badge { font-size: 9px; font-weight: 800; color: #ffcc00; letter-spacing: 1px; }
     .pfc-title { font-size: 14px; font-weight: 900; margin: 0; text-transform: uppercase; }
     .pfc-gold { color: #ffcc00; }
-    .pfc-subtitle { font-size: 9px; color: #aaaaaa; margin-bottom: 8px; }
     .pfc-rules-box { background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 8px; margin-bottom: 10px; text-align: left; }
     .pfc-item { font-size: 8.5px; margin-bottom: 4px; color: #e0e0e0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 2px; }
-    .pfc-item:last-child { margin-bottom: 0; border-bottom: none; }
     .pfc-button { background: #ffcc00; color: #000; font-weight: 900; padding: 10px; border-radius: 8px; font-size: 12px; text-transform: uppercase; animation: pfc-shake 4s infinite; }
-    .pfc-hint { font-size: 8px; color: #666; margin-top: 5px; }
 
     @keyframes pfc-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     @keyframes pfc-shake { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
@@ -137,40 +149,45 @@
 </head>
 <body>
 
+  <!-- ENGLISH POPUP (10 SEC DELAY) -->
+  <div class="modal-overlay" id="popup">
+    <div class="modal-box">
+      <span class="pop-icon">🏆</span>
+      <h2 class="pop-title">Join Telegram</h2>
+      <p class="pop-desc">Join our official channel for HD backup links, live match updates, and daily winning teams!</p>
+      <a href="#" class="pop-btn pb-join link-tg">Join Channel Now</a>
+      <button class="pop-btn pb-close" onclick="closePopup()">I'm already a member</button>
+    </div>
+  </div>
+
   <header>
     <i class="material-icons menu-icon" onclick="toggleMenu()">menu</i>
     <div class="logo-text">CRICKET <span>YODDHA</span></div>
     <div class="header-live"><div class="h-dot"></div> <span class="h-text">LIVE</span></div>
   </header>
 
-  <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
     <a href="#" class="sb-link link-tg"><i class="material-icons">send</i> Telegram Channel</a>
     <a href="javascript:location.reload()" class="sb-link"><i class="material-icons">refresh</i> Refresh Page</a>
-    <a href="javascript:sharePage()" class="sb-link"><i class="material-icons">share</i> Share With Friends</a>
+    <a href="javascript:sharePage()" class="sb-link"><i class="material-icons">share</i> Share App</a>
   </div>
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <!-- VIDEO -->
   <div class="video-container">
     <iframe src="https://cricket-yoddha-channel-1.vercel.app/" allowfullscreen scrolling="no"></iframe>
   </div>
 
-  <!-- TICKER -->
   <div class="ticker-wrap">
     <div class="ticker-text">WELCOME TO CRICKET YODDHA 🏏 | JOIN TELEGRAM FOR HD BACKUP LINKS 🔗 | NO BUFFERING 🔥</div>
   </div>
 
-  <!-- MAIN CONTENT -->
   <div class="main-content">
     
-    <!-- VIEWS -->
     <div class="views-card">
       <div class="views-left"><i class="material-icons">bar_chart</i><span>Daily Views</span></div>
       <div class="views-count" id="total-views-count">...</div>
     </div>
 
-    <!-- TG BUTTON -->
     <a href="#" class="btn-tg link-tg">
       <div class="tg-content">
         <div class="tg-icon"><i class="material-icons">send</i></div>
@@ -179,41 +196,34 @@
       <i class="material-icons">chevron_right</i>
     </a>
 
-    <!-- SHARE/REFRESH -->
     <div class="btn-grid">
       <a href="javascript:sharePage()" class="btn-small"><i class="material-icons">share</i> Share</a>
       <a href="javascript:location.reload()" class="btn-small"><i class="material-icons">refresh</i> Refresh</a>
     </div>
 
-    <!-- PREMIUM BANNER (As Requested) -->
     <div class="pfc-wrapper">
         <a href="https://t.me/Manoj_expert" target="_blank" class="pfc-card">
             <div class="pfc-header">
-                <span class="pfc-dot"></span>
-                <span class="pfc-badge">VERIFIED PRIVATE CONTEST</span>
+                <span class="pfc-dot"></span><span class="pfc-badge">VERIFIED PRIVATE CONTEST</span>
             </div>
             <h2 class="pfc-title">JOIN OUR <span class="pfc-gold">PREMIUM WINNING CLUB</span> 🏆</h2>
-            <p class="pfc-subtitle">Safe & Secure Dream11 Private Matches</p>
             <div class="pfc-rules-box">
                 <div class="pfc-item">📋 <b>JOIN:</b> Pay Entry → Send SS → Get Code</div>
                 <div class="pfc-item">⏰ <b>DEADLINE:</b> 1 Hour Before Match Starts</div>
                 <div class="pfc-item">💰 <b>PAYOUT:</b> Winners Paid Next Day @ 10 AM</div>
             </div>
-            <div class="pfc-cta">
-                <div class="pfc-button">MESSAGE ADMIN TO JOIN NOW</div>
-                <p class="pfc-hint">Click here to start chat with Verified Admin</p>
-            </div>
+            <div class="pfc-button">MESSAGE ADMIN TO JOIN NOW</div>
         </a>
     </div>
 
   </div>
 
-  <!-- FIREBASE LOGIC -->
+  <!-- FIREBASE & LOGIC -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <script>
-    const WEBSITE_ID = "yoddha_noscroll_pfc";
+    const WEBSITE_ID = "yoddha_final_eng";
     const TELEGRAM_LINK = "https://t.me/+rwZKMV0-L8wyOTll";
     document.querySelectorAll('.link-tg').forEach(el => el.href = TELEGRAM_LINK);
 
@@ -222,11 +232,25 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
+    function closePopup() {
+      document.getElementById('popup').classList.remove('active');
+      sessionStorage.setItem('pop_shown_eng', 'true');
+    }
+
+    window.onload = () => {
+      setTimeout(() => {
+        if(!sessionStorage.getItem('pop_shown_eng')) {
+          document.getElementById('popup').classList.add('active');
+        }
+      }, 10000); // 10 Seconds Delay
+    };
+
     async function sharePage() {
       if(navigator.share) await navigator.share({title:'Live Cricket', url: window.location.href});
       else alert("Link Copied!");
     }
 
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyA-vR50CMDYJVHApJir-6fmgRqhFiqQDU8",
       authDomain: "my-website-cricket.firebaseapp.com",
@@ -240,7 +264,7 @@
     if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     const todayStr = new Date().toISOString().slice(0, 10); 
-    const visitRef = db.ref('daily_stats_v7/' + WEBSITE_ID + '/' + todayStr);
+    const visitRef = db.ref('daily_stats_eng/' + WEBSITE_ID + '/' + todayStr);
     visitRef.transaction(c => (c || 0) + 1);
     visitRef.on('value', s => { document.getElementById('total-views-count').innerText = (s.val() || 0).toLocaleString(); });
   </script>
