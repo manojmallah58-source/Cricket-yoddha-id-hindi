@@ -3,452 +3,207 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>CRICKET YODDHA - Premium Live</title>
+  <title>CRICKET YODDHA - Premium</title>
   
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Outfit:wght@400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-dark: #000000; /* Pure black for ultimate dark mode */
-      --bg-card: #0c0c0c; /* Dark charcoal for subtle contrast */
+      --bg-dark: #000000;
       --gold-main: #FFD700;
-      --gold-glow: rgba(255, 215, 0, 0.3); /* Softer glow */
-      --text-white: #e0e0e0; /* Off-white for readability */
-      --text-gray: #888888;
-      --border-color: rgba(255, 255, 255, 0.05); /* Very subtle border */
-      --accent-red: #ff4d4d; /* Brighter red for LIVE */
-      --gradient-bg-top: #0a0a0a;
-      --gradient-bg-bottom: #000000;
+      --border-color: rgba(255, 255, 255, 0.1);
     }
 
-    * { 
-      box-sizing: border-box; 
-      -webkit-tap-highlight-color: transparent; 
-      outline: none; 
-      user-select: none; 
-      -webkit-touch-callout: none;
-      -webkit-text-size-adjust: 100%;
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
     
     body {
-      margin: 0; padding: 0;
       background-color: var(--bg-dark);
-      background-image: radial-gradient(circle at top center, var(--gradient-bg-top), var(--gradient-bg-bottom) 70%); /* Wider dark gradient */
       font-family: 'Outfit', sans-serif;
-      color: var(--text-white);
-      padding-bottom: 80px;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      color: #fff;
+      height: 100vh;
+      overflow: hidden; /* Scroll band karne ke liye */
+      display: flex;
+      flex-direction: column;
     }
 
-    /* SCROLLBAR */
-    body::-webkit-scrollbar { width: 8px; }
-    body::-webkit-scrollbar-track { background: var(--bg-dark); }
-    body::-webkit-scrollbar-thumb { background-color: #222; border-radius: 10px; border: 2px solid var(--bg-dark); }
-    body::-webkit-scrollbar-thumb:hover { background-color: #444; }
-
-    /* HEADER */
+    /* HEADER - Slim */
     header {
-      position: fixed; top: 0; width: 100%; height: 60px; /* Slightly shorter */
-      background: rgba(0, 0, 0, 0.98); /* Almost opaque */
-      backdrop-filter: blur(25px); /* More blur */
+      height: 45px;
+      background: #000;
       border-bottom: 1px solid var(--border-color);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 16px;
-      z-index: 1000;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.9); /* Stronger shadow */
+      padding: 0 12px;
     }
-
-    .menu-icon { font-size: 26px; color: #fff; cursor: pointer; transition: 0.2s transform, 0.2s color; }
-    .menu-icon:active { color: var(--gold-main); transform: scale(0.9); }
-    
-    .logo-container { 
-      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); 
-      display: flex; align-items: center; gap: 6px;
-    }
-    .logo-text { 
-      font-family: 'Rajdhani'; font-weight: 800; font-size: 20px;
-      color: #fff; letter-spacing: 1.5px;
-      text-shadow: 0 0 8px rgba(255,215,0,0.2); /* Softer glow */
-    }
+    .menu-icon { font-size: 22px; color: #fff; cursor: pointer; }
+    .logo-text { font-family: 'Rajdhani'; font-weight: 800; font-size: 18px; color: #fff; }
     .logo-text span { color: var(--gold-main); }
-
     .header-live {
-      display: flex; align-items: center; gap: 7px;
-      background: rgba(255, 77, 77, 0.15); /* Softer red background */
-      border: 1px solid rgba(255, 77, 77, 0.3);
-      padding: 4px 10px; border-radius: 20px;
-      box-shadow: 0 0 12px rgba(255, 77, 77, 0.3);
+      display: flex; align-items: center; gap: 4px;
+      background: rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.3);
+      padding: 2px 8px; border-radius: 12px;
     }
-    .h-dot { 
-      width: 8px; height: 8px; background: var(--accent-red); border-radius: 50%; 
-      box-shadow: 0 0 8px var(--accent-red), 0 0 16px rgba(255,0,0,0.4);
-      animation: blink 1s infinite cubic-bezier(0.4, 0, 0.6, 1);
-    }
-    .h-text { font-size: 11px; font-weight: 700; color: var(--accent-red); font-family: 'Rajdhani'; letter-spacing: 0.8px; text-transform: uppercase; }
+    .h-dot { width: 6px; height: 6px; background: #ff4d4d; border-radius: 50%; box-shadow: 0 0 5px #ff4d4d; animation: pfc-blink 1.2s infinite; }
+    .h-text { font-size: 10px; font-weight: 700; color: #ff4d4d; font-family: 'Rajdhani'; }
 
     /* VIDEO SECTION */
-    .video-wrapper {
-      margin-top: 60px;
-      width: 100%; position: relative;
-      background: #000;
-      box-shadow: 0 18px 50px rgba(0,0,0,0.9); /* Stronger, deeper shadow */
-      border-bottom-left-radius: 15px; /* Even more roundness */
-      border-bottom-right-radius: 15px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.02); /* Very subtle outer border */
-    }
-    .video-container {
-      width: 100%; aspect-ratio: 16/9;
-      position: relative; overflow: hidden;
-      background-color: #000;
-    }
-    .video-container iframe { 
-      width: 100%; height: 100%; border: none; display: block; 
-    }
-    
-    .video-bar { 
-      height: 4px;
-      width: 100%; 
-      background: linear-gradient(90deg, transparent 10%, #FFD700, #e6c200, transparent 90%); /* More focused gold line */
-      opacity: 0.7; 
-      box-shadow: 0 0 12px var(--gold-glow);
-    }
+    .video-container { width: 100%; aspect-ratio: 16/9; background: #000; }
+    .video-container iframe { width: 100%; height: 100%; border: none; }
 
     /* TICKER */
     .ticker-wrap {
-      background: var(--bg-card); /* Consistent with card bg */
-      height: 35px;
-      overflow: hidden;
+      background: #080808; height: 26px; overflow: hidden;
       display: flex; align-items: center; border-bottom: 1px solid var(--border-color);
-      position: relative;
-      padding: 0 12px;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5); /* Subtle inner shadow */
     }
-    .ticker-wrap::before, .ticker-wrap::after {
-      content: ''; position: absolute; top: 0; bottom: 0; width: 35px; z-index: 2;
-      pointer-events: none;
-    }
-    .ticker-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg-card) 20%, transparent); }
-    .ticker-wrap::after { right: 0; background: linear-gradient(-90deg, var(--bg-card) 20%, transparent); }
-    
     .ticker-text {
-      color: var(--gold-main); font-weight: 600; font-family: 'Outfit'; font-size: 13px; /* Softer, more modern ticker text */
-      letter-spacing: 0.8px; text-transform: uppercase;
-      white-space: nowrap; animation: scroll 20s linear infinite; /* Faster scroll */
-      padding-left: 100%;
-      text-shadow: 0 0 4px rgba(255,215,0,0.1);
+      color: var(--gold-main); font-weight: 700; font-size: 10px;
+      white-space: nowrap; animation: scroll 15s linear infinite;
+      padding-left: 100%; text-transform: uppercase;
     }
     @keyframes scroll { 100% { transform: translateX(-100%); } }
 
-    /* MAIN ACTIONS AREA */
-    .action-section { 
-      padding: 25px 16px; 
-      max-width: 600px; /* Slightly narrower for focus */
-      margin: 0 auto;
+    /* MAIN CONTENT AREA */
+    .main-content {
+      flex: 1;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Items ko barabar distribute karne ke liye */
+      gap: 6px;
     }
 
-    /* SMALL DAILY VIEWS CARD */
-    .daily-views-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 15px; /* Smaller radius for smaller card */
-      padding: 15px 20px; /* Reduced padding */
-      margin-bottom: 20px; /* Margin below for separation */
+    /* DAILY VIEWS */
+    .views-card {
+      background: #0f0f0f; border: 1px solid var(--border-color);
+      padding: 8px 12px; border-radius: 10px;
       display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      position: relative;
-      overflow: hidden;
     }
-    .daily-views-card::before {
-      content: '';
-      position: absolute;
-      top: -10px; left: -10px; width: 40px; height: 40px;
-      background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
-      pointer-events: none;
-      transform: rotate(45deg);
-    }
-    .daily-views-card:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .views-left { display: flex; align-items: center; gap: 8px; }
+    .views-left i { color: var(--gold-main); font-size: 18px; }
+    .views-left span { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; }
+    .views-count { font-size: 16px; font-weight: 800; color: #fff; font-family: 'Rajdhani'; }
 
-    .daily-views-card .icon { font-size: 18px; color: var(--gold-main); margin-right: 10px; }
-    .daily-views-card .text { 
-      flex-grow: 1;
-      font-size: 12px; 
-      color: var(--text-gray); 
-      text-transform: uppercase; 
-      letter-spacing: 0.7px; 
-      font-weight: 600;
-    }
-    .daily-views-card .value { 
-      font-size: 20px; /* Smaller font size for value */
-      font-weight: 700; 
-      color: var(--text-white); 
-      font-family: 'Rajdhani';
-    }
-
-    /* BUTTONS */
-    .btn-group { display: flex; flex-direction: column; gap: 15px; }
-
-    .btn-main {
+    /* TELEGRAM BUTTON */
+    .btn-tg {
+      background: var(--gold-main); color: #000;
+      text-decoration: none; padding: 10px 15px; border-radius: 12px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 20px; /* Reduced padding */
-      border-radius: 14px; /* Slightly less rounded */
-      text-decoration: none;
-      background: linear-gradient(45deg, #FFD700, #ffc800); /* Brighter gold */
-      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
     }
-    .btn-main::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent 50%, rgba(255,255,255,0.1));
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    .btn-main:active { 
-      transform: scale(0.98); 
-      box-shadow: 0 3px 10px rgba(255, 215, 0, 0.2); 
-    }
-    .btn-main:active::before { opacity: 1; }
-    
-    .btn-content { display: flex; align-items: center; gap: 12px; }
-    .btn-icon-circle { 
-      width: 36px; height: 36px; background: rgba(0,0,0,0.1); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; 
-      box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
-    }
-    .btn-icon-circle i { color: #000; font-size: 20px; margin-right: 1px; margin-top: 1px;} 
-    
-    .btn-text h3 { margin: 0; color: #000; font-size: 15px; font-weight: 700; font-family: 'Rajdhani'; text-transform: uppercase; letter-spacing: 0.5px; }
-    .btn-text p { margin: 0; color: #333; font-size: 10px; font-weight: 600; text-transform: uppercase; }
-    .btn-arrow { color: #000; font-size: 22px; }
+    .tg-content { display: flex; align-items: center; gap: 10px; }
+    .tg-icon { width: 30px; height: 30px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .tg-text h3 { font-size: 14px; font-weight: 800; font-family: 'Rajdhani'; text-transform: uppercase; line-height: 1; }
+    .tg-text p { font-size: 8px; font-weight: 600; text-transform: uppercase; }
 
-    .btn-secondary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    .btn-sec {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      padding: 12px; border-radius: 12px;
-      text-decoration: none;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.3);
-      backdrop-filter: blur(3px);
+    /* SHARE/REFRESH GRID */
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .btn-small {
+      background: #0f0f0f; border: 1px solid var(--border-color);
+      padding: 8px; border-radius: 10px; color: #fff;
+      text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-weight: 700; font-size: 11px; text-transform: uppercase;
     }
-    .btn-sec:active { 
-      background: #1a1a1a; 
-      transform: translateY(1px); 
-      box-shadow: 0 1px 5px rgba(0,0,0,0.15); 
-    }
-    .btn-sec i { font-size: 18px; color: #999; }
-    .btn-sec span { font-size: 12px; color: #ccc; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    /* POPUP */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.98);
-      z-index: 9999; display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: 0.4s ease-in-out; backdrop-filter: blur(20px);
+    /* --- PREMIUM BANNER (Adjusted for No-Scroll) --- */
+    .pfc-wrapper { margin: 2px 0; font-family: 'Montserrat', sans-serif; }
+    .pfc-card {
+        display: block; background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
+        border: 2px solid #ffcc00; border-radius: 15px;
+        padding: 12px 15px; text-decoration: none !important; color: #ffffff !important;
+        text-align: center; box-shadow: 0 5px 15px rgba(255, 204, 0, 0.1);
     }
-    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .pfc-header { display: flex; justify-content: center; align-items: center; margin-bottom: 5px; }
+    .pfc-dot { height: 7px; width: 7px; background: #00ff00; border-radius: 50%; margin-right: 6px; box-shadow: 0 0 8px #00ff00; animation: pfc-blink 1.2s infinite; }
+    .pfc-badge { font-size: 9px; font-weight: 800; color: #ffcc00; letter-spacing: 1px; }
+    .pfc-title { font-size: 14px; font-weight: 900; margin: 0; text-transform: uppercase; }
+    .pfc-gold { color: #ffcc00; }
+    .pfc-subtitle { font-size: 9px; color: #aaaaaa; margin-bottom: 8px; }
+    .pfc-rules-box { background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 8px; margin-bottom: 10px; text-align: left; }
+    .pfc-item { font-size: 8.5px; margin-bottom: 4px; color: #e0e0e0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 2px; }
+    .pfc-item:last-child { margin-bottom: 0; border-bottom: none; }
+    .pfc-button { background: #ffcc00; color: #000; font-weight: 900; padding: 10px; border-radius: 8px; font-size: 12px; text-transform: uppercase; animation: pfc-shake 4s infinite; }
+    .pfc-hint { font-size: 8px; color: #666; margin-top: 5px; }
 
-    .modal-box {
-      width: 90%; max-width: 340px;
-      background: linear-gradient(135deg, #151515, #080808);
-      border: 1px solid #333;
-      border-radius: 25px;
-      padding: 30px 25px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-      transform: scale(0.85); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .modal-overlay.active .modal-box { transform: scale(1); }
-
-    .pop-icon { 
-      width: 60px; height: 60px; background: rgba(255, 215, 0, 0.15);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 18px;
-      box-shadow: 0 0 15px rgba(255,215,0,0.3);
-    }
-    .pop-icon i { font-size: 32px; color: var(--gold-main); text-shadow: 0 0 6px var(--gold-main); }
-    
-    .pop-title { 
-      color: #fff; font-size: 20px; font-weight: 800; margin: 0 0 8px; 
-      font-family: 'Rajdhani'; letter-spacing: 0.7px; text-transform: uppercase;
-    }
-    .pop-desc { color: #aaa; font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
-
-    .pop-btn {
-      display: block; width: 100%; padding: 14px; border-radius: 12px;
-      text-decoration: none; font-weight: 700; font-size: 14px; 
-      transition: 0.2s ease; cursor: pointer;
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .pb-join { 
-      background: var(--gold-main); color: #000; margin-bottom: 10px; 
-      box-shadow: 0 4px 15px rgba(255,215,0,0.3); 
-    }
-    .pb-join:active { background: #e6c200; transform: translateY(1px); box-shadow: 0 2px 8px rgba(255,215,0,0.2); }
-
-    .pb-close { 
-      background: transparent; color: #777; border: 1px solid #3a3a3a; 
-    }
-    .pb-close:active { background: #222; color: #ccc; border-color: #444; transform: translateY(1px); }
+    @keyframes pfc-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes pfc-shake { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
 
     /* SIDEBAR */
-    .sidebar {
-      position: fixed; left: -100%; top: 0; width: 280px; height: 100%;
-      background: linear-gradient(180deg, #181818, #050505);
-      z-index: 5000; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border-right: 1px solid #282828;
-      box-shadow: 6px 0 25px rgba(0,0,0,0.7);
-    }
+    .sidebar { position: fixed; left: -250px; top: 0; width: 250px; height: 100%; background: #0a0a0a; z-index: 2000; transition: 0.3s; padding-top: 50px; border-right: 1px solid #222; }
     .sidebar.open { left: 0; }
-    .sb-header { padding: 30px 25px; border-bottom: 1px solid #282828; background: #0e0e0e; }
-    .sb-logo { 
-      font-family: 'Rajdhani'; font-size: 24px; font-weight: 800; color: #fff; 
-      letter-spacing: 1.5px;
-      text-shadow: 0 0 10px rgba(255,215,0,0.2);
-    }
-    .sb-logo span { color: var(--gold-main); }
-
-    .sb-link {
-      display: flex; align-items: center; gap: 16px; padding: 18px 25px;
-      color: #b0b0b0; text-decoration: none; font-size: 14px; font-weight: 500;
-      transition: 0.2s ease; border-bottom: 1px solid #1f1f1f;
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .sb-link:last-child { border-bottom: none; }
-    .sb-link:active { 
-      background: #202020; color: var(--gold-main); 
-      transform: translateX(5px);
-    }
-    .sb-link i { color: #777; font-size: 20px; transition: 0.2s; }
-    .sb-link:active i { color: var(--gold-main); }
-    
-    .overlay { 
-      position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 4999; 
-      opacity: 0; pointer-events: none; transition: 0.3s ease; 
-    }
-    .overlay.active { opacity: 1; pointer-events: auto; }
-
-    /* MEDIA QUERIES for larger screens */
-    @media (min-width: 768px) {
-      header { padding: 0 30px; height: 70px; }
-      .logo-text { font-size: 24px; }
-      .h-text { font-size: 12px; }
-      .video-wrapper { margin-top: 70px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
-      .ticker-wrap { height: 40px; padding: 0 20px; }
-      .ticker-text { font-size: 14px; }
-      .action-section { padding: 35px 25px; max-width: 650px; }
-      .daily-views-card { padding: 18px 25px; margin-bottom: 25px; }
-      .daily-views-card .icon { font-size: 20px; }
-      .daily-views-card .text { font-size: 13px; }
-      .daily-views-card .value { font-size: 24px; }
-      .btn-main { padding: 18px 25px; border-radius: 16px; }
-      .btn-icon-circle { width: 40px; height: 40px; }
-      .btn-icon-circle i { font-size: 22px; }
-      .btn-text h3 { font-size: 16px; }
-      .btn-text p { font-size: 11px; }
-      .btn-arrow { font-size: 24px; }
-      .btn-secondary-grid { gap: 20px; }
-      .btn-sec { padding: 14px; border-radius: 14px; }
-      .btn-sec i { font-size: 20px; }
-      .btn-sec span { font-size: 13px; }
-      .sidebar { width: 320px; }
-      .sb-header { padding: 35px 30px; }
-      .sb-logo { font-size: 26px; }
-      .sb-link { padding: 20px 30px; font-size: 15px; }
-      .sb-link i { font-size: 22px; }
-    }
+    .sb-link { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: #ccc; text-decoration: none; border-bottom: 1px solid #111; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; display: none; }
+    .overlay.active { display: block; }
   </style>
 </head>
 <body>
 
-  <!-- POPUP -->
-  <div class="modal-overlay" id="popup">
-    <div class="modal-box">
-      <div class="pop-icon"><i class="material-icons">telegram</i></div>
-      <div class="pop-title">Join for Backup Links!</div>
-      <div class="pop-desc">Don't miss a single ball. Join our official channel for HD links and live updates.</div>
-      <a href="#" id="pop-link" class="pop-btn pb-join">Join Telegram Channel</a>
-      <button class="pop-btn pb-close" onclick="closePopup()">I'm already in</button>
-    </div>
-  </div>
-
-  <!-- HEADER -->
   <header>
-    <div class="menu-icon material-icons" onclick="toggleMenu()">notes</div>
-    <div class="logo-container">
-      <span class="logo-text">CRICKET <span> YODDHA</span></span>
-    </div>
-    <div class="header-live">
-      <div class="h-dot"></div> <span class="h-text">LIVE</span>
-    </div>
+    <i class="material-icons menu-icon" onclick="toggleMenu()">menu</i>
+    <div class="logo-text">CRICKET <span>YODDHA</span></div>
+    <div class="header-live"><div class="h-dot"></div> <span class="h-text">LIVE</span></div>
   </header>
 
   <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
-    <div class="sb-header">
-      <div class="sb-logo">CRICKET<span>YODDHA</span></div>
-    </div>
-    <a href="#" id="side-tg" class="sb-link"><i class="material-icons">send</i> Join Telegram</a>
-    <a href="#" id="side-instagram" class="sb-link"><i class="material-icons">support_agent</i> Customer Support</a>
+    <a href="#" class="sb-link link-tg"><i class="material-icons">send</i> Telegram Channel</a>
     <a href="javascript:location.reload()" class="sb-link"><i class="material-icons">refresh</i> Refresh Page</a>
-    <a href="javascript:sharePage()" class="sb-link"><i class="material-icons">share</i> Share App</a>
+    <a href="javascript:sharePage()" class="sb-link"><i class="material-icons">share</i> Share With Friends</a>
   </div>
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <!-- VIDEO -->
-  <div class="video-wrapper">
-    <div class="video-container">
-      <iframe src="https://cricket-yoddha-channel-1.vercel.app/" allowfullscreen allow="autoplay; encrypted-media" scrolling="no"></iframe>
-    <div class="video-bar"></div>
+  <div class="video-container">
+    <iframe src="https://cricket-yoddha-channel-1.vercel.app/" allowfullscreen scrolling="no"></iframe>
   </div>
 
   <!-- TICKER -->
   <div class="ticker-wrap">
-    <div class="ticker-text">
-       WELCOME TO CRICKET YODDHA 🏏 | JOIN TELEGRAM FOR MORE LINKS 🔗 | SHARE THIS LINK WITH FRIENDS 🔥 | NO BUFFERING HD STREAM
-    </div>
+    <div class="ticker-text">WELCOME TO CRICKET YODDHA 🏏 | JOIN TELEGRAM FOR HD BACKUP LINKS 🔗 | NO BUFFERING 🔥</div>
   </div>
 
-  <!-- ACTIONS -->
-  <div class="action-section">
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
     
-    <!-- SMALL DAILY VIEWS CARD -->
-    <div class="daily-views-card">
-      <i class="material-icons icon">bar_chart</i>
-      <span class="text">Daily Views</span>
-      <span class="value" id="total-views-count">...</span>
+    <!-- VIEWS -->
+    <div class="views-card">
+      <div class="views-left"><i class="material-icons">bar_chart</i><span>Daily Views</span></div>
+      <div class="views-count" id="total-views-count">...</div>
     </div>
-    <!-- MAIN BUTTONS -->
-    <div class="btn-group">
-      <a href="#" id="main-btn" class="btn-main">
-        <div class="btn-content">
-          <div class="btn-icon-circle"><i class="material-icons">send</i></div>
-          <div class="btn-text">
-            <h3>Join Telegram</h3>
-            <p>For Link Backups & Updates</p>
-          </div>
-        </div>
-        <i class="material-icons btn-arrow">chevron_right</i>
-      </a>
 
-      <div class="btn-secondary-grid">
-        <a href="javascript:void(0)" onclick="sharePage()" class="btn-sec">
-          <i class="material-icons">share</i>
-          <span>Share</span>
-        </a>
-        <a href="javascript:location.reload()" class="btn-sec">
-          <i class="material-icons">refresh</i>
-          <span>Refresh</span>
-        </a>
+    <!-- TG BUTTON -->
+    <a href="#" class="btn-tg link-tg">
+      <div class="tg-content">
+        <div class="tg-icon"><i class="material-icons">send</i></div>
+        <div class="tg-text"><h3>Join Telegram</h3><p>Link Backups & Updates</p></div>
       </div>
+      <i class="material-icons">chevron_right</i>
+    </a>
+
+    <!-- SHARE/REFRESH -->
+    <div class="btn-grid">
+      <a href="javascript:sharePage()" class="btn-small"><i class="material-icons">share</i> Share</a>
+      <a href="javascript:location.reload()" class="btn-small"><i class="material-icons">refresh</i> Refresh</a>
+    </div>
+
+    <!-- PREMIUM BANNER (As Requested) -->
+    <div class="pfc-wrapper">
+        <a href="https://t.me/Manoj_expert" target="_blank" class="pfc-card">
+            <div class="pfc-header">
+                <span class="pfc-dot"></span>
+                <span class="pfc-badge">VERIFIED PRIVATE CONTEST</span>
+            </div>
+            <h2 class="pfc-title">JOIN OUR <span class="pfc-gold">PREMIUM WINNING CLUB</span> 🏆</h2>
+            <p class="pfc-subtitle">Safe & Secure Dream11 Private Matches</p>
+            <div class="pfc-rules-box">
+                <div class="pfc-item">📋 <b>JOIN:</b> Pay Entry → Send SS → Get Code</div>
+                <div class="pfc-item">⏰ <b>DEADLINE:</b> 1 Hour Before Match Starts</div>
+                <div class="pfc-item">💰 <b>PAYOUT:</b> Winners Paid Next Day @ 10 AM</div>
+            </div>
+            <div class="pfc-cta">
+                <div class="pfc-button">MESSAGE ADMIN TO JOIN NOW</div>
+                <p class="pfc-hint">Click here to start chat with Verified Admin</p>
+            </div>
+        </a>
     </div>
 
   </div>
@@ -458,50 +213,20 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <script>
-    // ================= CONFIG =================
-    const WEBSITE_ID = "channel_hindi"; // Changed WEBSITE_ID again for a fresh counter
+    const WEBSITE_ID = "yoddha_noscroll_pfc";
     const TELEGRAM_LINK = "https://t.me/+rwZKMV0-L8wyOTll";
-    const INSTAGRAM_LINK = "https://www.instagram.com/cricket_yoddha?igsh=MWpoZDltdjZzYnRncw=="; 
-    // ==========================================
-
-    document.getElementById('pop-link').href = TELEGRAM_LINK;
-    document.getElementById('side-tg').href = TELEGRAM_LINK;
-    document.getElementById('main-btn').href = TELEGRAM_LINK;
-    document.getElementById('side-instagram').href = INSTAGRAM_LINK;
+    document.querySelectorAll('.link-tg').forEach(el => el.href = TELEGRAM_LINK);
 
     function toggleMenu() {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('overlay').classList.toggle('active');
     }
 
-    // Popup Logic
-    window.onload = () => {
-      setTimeout(() => {
-        if(!sessionStorage.getItem('pop_shown_' + WEBSITE_ID)) {
-          document.getElementById('popup').classList.add('active');
-        }
-      }, 2500);
-    };
-
-    function closePopup() {
-      document.getElementById('popup').classList.remove('active');
-      sessionStorage.setItem('pop_shown_' + WEBSITE_ID, 'true');
-    }
-
     async function sharePage() {
-      if(navigator.share) await navigator.share({title:'Watch Live Cricket HD', text: 'Watch Live Cricket HD without buffering!', url: window.location.href});
-      else {
-        const dummy = document.createElement("textarea");
-        document.body.appendChild(dummy);
-        dummy.value = window.location.href;
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
-        alert("Link copied to clipboard!");
-      }
+      if(navigator.share) await navigator.share({title:'Live Cricket', url: window.location.href});
+      else alert("Link Copied!");
     }
 
-    // --- FIREBASE CONFIG ---
     const firebaseConfig = {
       apiKey: "AIzaSyA-vR50CMDYJVHApJir-6fmgRqhFiqQDU8",
       authDomain: "my-website-cricket.firebaseapp.com",
@@ -514,18 +239,10 @@
 
     if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-
-    // DAILY VISITORS LOGIC - MODIFIED to count every refresh
     const todayStr = new Date().toISOString().slice(0, 10); 
-    const visitRef = db.ref('daily_stats_v4/' + WEBSITE_ID + '/' + todayStr); // Changed Firebase path
-    
-    // Increment on every page load/refresh
-    visitRef.transaction(current => (current || 0) + 1);
-
-    visitRef.on('value', (snap) => {
-      document.getElementById('total-views-count').innerText = (snap.val() || 0).toLocaleString();
-    });
-
+    const visitRef = db.ref('daily_stats_v7/' + WEBSITE_ID + '/' + todayStr);
+    visitRef.transaction(c => (c || 0) + 1);
+    visitRef.on('value', s => { document.getElementById('total-views-count').innerText = (s.val() || 0).toLocaleString(); });
   </script>
 </body>
 </html>
