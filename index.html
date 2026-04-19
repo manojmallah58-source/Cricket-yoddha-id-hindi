@@ -12,6 +12,7 @@
     :root {
       --bg-dark: #000000;
       --gold-main: #FFD700;
+      --card-bg: #121212;
       --border-color: rgba(255, 255, 255, 0.1);
     }
 
@@ -22,141 +23,148 @@
       font-family: 'Outfit', sans-serif;
       color: #fff;
       height: 100vh;
-      overflow: hidden; 
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
     }
 
-    /* POPUP STYLES (ENGLISH) */
+    /* POPUP STYLES */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+      position: fixed; inset: 0; background: rgba(0,0,0,0.92);
       z-index: 9999; display: none; align-items: center; justify-content: center;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
     .modal-overlay.active { display: flex; }
     .modal-box {
       width: 85%; max-width: 320px; background: #111; border: 1px solid #333;
       border-radius: 20px; padding: 25px; text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,1);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
     }
-    .pop-icon { font-size: 50px; margin-bottom: 10px; display: block; }
+    .pop-icon { font-size: 50px; margin-bottom: 15px; display: block; }
     .pop-title { font-family: 'Rajdhani'; color: var(--gold-main); font-size: 24px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; }
-    .pop-desc { font-size: 13px; color: #bbb; margin-bottom: 25px; line-height: 1.5; }
+    .pop-desc { font-size: 14px; color: #ccc; margin-bottom: 25px; line-height: 1.5; }
     .pop-btn { display: block; width: 100%; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; font-size: 13px; font-family: 'Rajdhani'; transition: 0.3s; }
     .pb-join { background: var(--gold-main); color: #000; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
     .pb-close { background: transparent; color: #666; border: 1px solid #333; cursor: pointer; }
 
     /* HEADER */
     header {
-      height: 45px;
+      height: 55px;
       background: #000;
       border-bottom: 1px solid var(--border-color);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 12px;
+      padding: 0 15px;
     }
-    .menu-icon { font-size: 22px; color: #fff; cursor: pointer; }
-    .logo-text { font-family: 'Rajdhani'; font-weight: 800; font-size: 18px; color: #fff; }
+    .menu-icon { font-size: 28px; color: #fff; cursor: pointer; }
+    .logo-text { font-family: 'Rajdhani'; font-weight: 800; font-size: 22px; color: #fff; letter-spacing: 1px; }
     .logo-text span { color: var(--gold-main); }
+    
     .header-live {
-      display: flex; align-items: center; gap: 4px;
-      background: rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.3);
-      padding: 2px 8px; border-radius: 12px;
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(255, 0, 0, 0.2); border: 1px solid rgba(255, 0, 0, 0.4);
+      padding: 3px 10px; border-radius: 20px;
     }
-    .h-dot { width: 6px; height: 6px; background: #ff4d4d; border-radius: 50%; box-shadow: 0 0 5px #ff4d4d; animation: pfc-blink 1.2s infinite; }
-    .h-text { font-size: 10px; font-weight: 700; color: #ff4d4d; font-family: 'Rajdhani'; }
+    .h-dot { width: 7px; height: 7px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 8px #ff0000; animation: blink 1.2s infinite; }
+    .h-text { font-size: 11px; font-weight: 800; color: #fff; font-family: 'Rajdhani'; }
 
     /* VIDEO SECTION */
-    .video-container { width: 100%; aspect-ratio: 16/9; background: #000; }
-    .video-container iframe { width: 100%; height: 100%; border: none; }
+    .video-container { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
     /* TICKER */
     .ticker-wrap {
-      background: #080808; height: 26px; overflow: hidden;
+      background: #000; height: 30px; overflow: hidden;
       display: flex; align-items: center; border-bottom: 1px solid var(--border-color);
     }
     .ticker-text {
-      color: var(--gold-main); font-weight: 700; font-size: 10px;
-      white-space: nowrap; animation: scroll 15s linear infinite;
+      color: var(--gold-main); font-weight: 700; font-size: 12px;
+      white-space: nowrap; animation: scroll 18s linear infinite;
       padding-left: 100%; text-transform: uppercase;
     }
     @keyframes scroll { 100% { transform: translateX(-100%); } }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
     /* MAIN CONTENT */
-    .main-content {
-      flex: 1; padding: 8px 12px;
-      display: flex; flex-direction: column;
-      justify-content: space-between; gap: 6px;
-    }
+    .main-content { padding: 15px; display: flex; flex-direction: column; gap: 12px; }
 
     /* DAILY VIEWS */
     .views-card {
-      background: #0f0f0f; border: 1px solid var(--border-color);
-      padding: 8px 12px; border-radius: 10px;
+      background: #111; border: 1px solid #222;
+      padding: 12px 15px; border-radius: 12px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .views-left { display: flex; align-items: center; gap: 8px; }
-    .views-left i { color: var(--gold-main); font-size: 18px; }
-    .views-left span { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; }
-    .views-count { font-size: 16px; font-weight: 800; color: #fff; font-family: 'Rajdhani'; }
+    .views-left { display: flex; align-items: center; gap: 10px; }
+    .views-left i { color: var(--gold-main); font-size: 20px; }
+    .views-left span { font-size: 12px; font-weight: 700; color: #aaa; text-transform: uppercase; }
+    .views-count { font-size: 20px; font-weight: 800; color: #fff; font-family: 'Rajdhani'; }
 
     /* TELEGRAM BUTTON */
     .btn-tg {
       background: var(--gold-main); color: #000;
-      text-decoration: none; padding: 10px 15px; border-radius: 12px;
+      text-decoration: none; padding: 15px; border-radius: 12px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .tg-content { display: flex; align-items: center; gap: 10px; }
-    .tg-icon { width: 30px; height: 30px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .tg-text h3 { font-size: 14px; font-weight: 800; font-family: 'Rajdhani'; text-transform: uppercase; line-height: 1; }
-    .tg-text p { font-size: 8px; font-weight: 600; text-transform: uppercase; }
+    .tg-content { display: flex; align-items: center; gap: 15px; }
+    .tg-icon { font-size: 28px; }
+    .tg-text h3 { font-size: 18px; font-weight: 800; font-family: 'Rajdhani'; text-transform: uppercase; line-height: 1; }
+    .tg-text p { font-size: 10px; font-weight: 700; text-transform: uppercase; opacity: 0.8; }
 
-    /* SHARE/REFRESH GRID */
-    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    /* ACTION BUTTONS */
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .btn-small {
-      background: #0f0f0f; border: 1px solid var(--border-color);
-      padding: 8px; border-radius: 10px; color: #fff;
-      text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px;
-      font-weight: 700; font-size: 11px; text-transform: uppercase;
+      background: #111; border: 1px solid #222;
+      padding: 14px; border-radius: 12px; color: #fff;
+      text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-weight: 800; font-size: 13px; text-transform: uppercase; font-family: 'Rajdhani';
     }
 
-    /* PREMIUM BANNER */
-    .pfc-wrapper { font-family: 'Montserrat', sans-serif; }
-    .pfc-card {
-        display: block; background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
-        border: 2px solid #ffcc00; border-radius: 15px;
-        padding: 12px 15px; text-decoration: none !important; color: #ffffff !important;
-        text-align: center; box-shadow: 0 5px 15px rgba(255, 204, 0, 0.1);
+    /* PREMIUM CLUB CARD */
+    .premium-card {
+        border: 1px solid var(--gold-main);
+        border-radius: 15px; background: #000;
+        padding: 15px; text-align: center; margin-top: 5px;
     }
-    .pfc-header { display: flex; justify-content: center; align-items: center; margin-bottom: 5px; }
-    .pfc-dot { height: 7px; width: 7px; background: #00ff00; border-radius: 50%; margin-right: 6px; box-shadow: 0 0 8px #00ff00; animation: pfc-blink 1.2s infinite; }
-    .pfc-badge { font-size: 9px; font-weight: 800; color: #ffcc00; letter-spacing: 1px; }
-    .pfc-title { font-size: 14px; font-weight: 900; margin: 0; text-transform: uppercase; }
-    .pfc-gold { color: #ffcc00; }
-    .pfc-rules-box { background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 8px; margin-bottom: 10px; text-align: left; }
-    .pfc-item { font-size: 8.5px; margin-bottom: 4px; color: #e0e0e0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 2px; }
-    .pfc-button { background: #ffcc00; color: #000; font-weight: 900; padding: 10px; border-radius: 8px; font-size: 12px; text-transform: uppercase; animation: pfc-shake 4s infinite; }
+    .prem-tag { display: flex; align-items: center; justify-content: center; gap: 5px; margin-bottom: 5px; }
+    .prem-tag .dot { width: 6px; height: 6px; background: #00ff00; border-radius: 50%; }
+    .prem-tag span { font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase; }
+    
+    .prem-title { font-size: 16px; font-weight: 900; color: #fff; text-transform: uppercase; margin-bottom: 2px; }
+    .prem-title span { color: var(--gold-main); }
+    .prem-subtitle { font-size: 9px; color: #777; margin-bottom: 12px; }
 
-    @keyframes pfc-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    @keyframes pfc-shake { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+    .rules-list { background: #0a0a0a; border-radius: 8px; padding: 5px 0; text-align: left; border: 1px solid #1a1a1a; margin-bottom: 15px; }
+    .rule-item { 
+        padding: 8px 12px; font-size: 9.5px; color: #ccc; 
+        border-bottom: 1px solid #1a1a1a; display: flex; align-items: center; gap: 5px;
+    }
+    .rule-item:last-child { border-bottom: none; }
+    .rule-item b { color: #fff; text-transform: uppercase; font-size: 9px; }
+
+    .prem-btn {
+        background: var(--gold-main); color: #000; font-weight: 900;
+        padding: 12px; border-radius: 8px; font-size: 11px;
+        text-transform: uppercase; display: block; text-decoration: none;
+    }
+    .prem-footer { font-size: 8px; color: #555; margin-top: 8px; }
 
     /* SIDEBAR */
     .sidebar { position: fixed; left: -250px; top: 0; width: 250px; height: 100%; background: #0a0a0a; z-index: 2000; transition: 0.3s; padding-top: 50px; border-right: 1px solid #222; }
     .sidebar.open { left: 0; }
-    .sb-link { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: #ccc; text-decoration: none; border-bottom: 1px solid #111; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+    .sb-link { display: flex; align-items: center; gap: 12px; padding: 15px 20px; color: #ccc; text-decoration: none; border-bottom: 1px solid #111; font-size: 13px; font-weight: 600; text-transform: uppercase; }
     .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; display: none; }
     .overlay.active { display: block; }
   </style>
 </head>
 <body>
 
-  <!-- ENGLISH POPUP (10 SEC DELAY) -->
+  <!-- POPUP (10 SECOND DELAY) -->
   <div class="modal-overlay" id="popup">
     <div class="modal-box">
       <span class="pop-icon">🏆</span>
       <h2 class="pop-title">Join Telegram</h2>
-      <p class="pop-desc">Join our official channel for HD backup links, live match updates, and daily winning teams!</p>
+      <p class="pop-desc">Join our Telegram channel for backup links & instant match updates.</p>
       <a href="#" class="pop-btn pb-join link-tg">Join Channel Now</a>
-      <button class="pop-btn pb-close" onclick="closePopup()">I'm already a member</button>
+      <button class="pop-btn pb-close" onclick="closePopup()">I'll join later</button>
     </div>
   </div>
 
@@ -174,11 +182,11 @@
   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <div class="video-container">
-    <iframe src="https://cricket-yoddha-channel-1.vercel.app/" allowfullscreen scrolling="no"></iframe>
+    <iframe src="https://cricket-yoddha-channel-1.vercel.app/" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe>
   </div>
 
   <div class="ticker-wrap">
-    <div class="ticker-text">WELCOME TO CRICKET YODDHA 🏏 | JOIN TELEGRAM FOR HD BACKUP LINKS 🔗 | NO BUFFERING 🔥</div>
+    <div class="ticker-text">CRICKET YODDHA 🏏 | JOIN TELEGRAM FOR HD BACKUP LINKS 🔗 | NO BUFFERING 🔥 | JOIN OUR PREMIUM WINNING CLUB 🏆</div>
   </div>
 
   <div class="main-content">
@@ -201,19 +209,20 @@
       <a href="javascript:location.reload()" class="btn-small"><i class="material-icons">refresh</i> Refresh</a>
     </div>
 
-    <div class="pfc-wrapper">
-        <a href="https://t.me/Manoj_expert" target="_blank" class="pfc-card">
-            <div class="pfc-header">
-                <span class="pfc-dot"></span><span class="pfc-badge">VERIFIED PRIVATE CONTEST</span>
-            </div>
-            <h2 class="pfc-title">JOIN OUR <span class="pfc-gold">PREMIUM WINNING CLUB</span> 🏆</h2>
-            <div class="pfc-rules-box">
-                <div class="pfc-item">📋 <b>JOIN:</b> Pay Entry → Send SS → Get Code</div>
-                <div class="pfc-item">⏰ <b>DEADLINE:</b> 1 Hour Before Match Starts</div>
-                <div class="pfc-item">💰 <b>PAYOUT:</b> Winners Paid Next Day @ 10 AM</div>
-            </div>
-            <div class="pfc-button">MESSAGE ADMIN TO JOIN NOW</div>
-        </a>
+    <div class="premium-card">
+        <div class="prem-tag"><div class="dot"></div><span>Verified Private Contest</span></div>
+        <h2 class="prem-title">Join Our <span>Premium Winning Club</span> 🏆</h2>
+        <p class="prem-subtitle">Safe & Secure Dream11 Private Matches | Daily Payouts</p>
+        
+        <div class="rules-list">
+            <div class="rule-item">📋 <b>How to Join:</b> Pay Entry → Send Screenshot → Get Code</div>
+            <div class="rule-item">⏰ <b>Deadline:</b> Strictly 1 Hour Before Match Starts</div>
+            <div class="rule-item">🆔 <b>Verification:</b> Dream11 User ID Required for Payout</div>
+            <div class="rule-item">💰 <b>Instant Payout:</b> Winners Paid Next Day @ 10:00 AM</div>
+        </div>
+
+        <a href="https://t.me/Manoj_expert" target="_blank" class="prem-btn">Message Admin To Join Now</a>
+        <p class="prem-footer">Click here to start chat with Verified Admin</p>
     </div>
 
   </div>
@@ -232,17 +241,15 @@
       document.getElementById('overlay').classList.toggle('active');
     }
 
+    // Popup Logic (10 Second Delay)
     function closePopup() {
       document.getElementById('popup').classList.remove('active');
-      sessionStorage.setItem('pop_shown_eng', 'true');
     }
 
     window.onload = () => {
       setTimeout(() => {
-        if(!sessionStorage.getItem('pop_shown_eng')) {
-          document.getElementById('popup').classList.add('active');
-        }
-      }, 10000); // 10 Seconds Delay
+        document.getElementById('popup').classList.add('active');
+      }, 10000); // 10000ms = 10 Seconds
     };
 
     async function sharePage() {
@@ -266,7 +273,9 @@
     const todayStr = new Date().toISOString().slice(0, 10); 
     const visitRef = db.ref('daily_stats_eng/' + WEBSITE_ID + '/' + todayStr);
     visitRef.transaction(c => (c || 0) + 1);
-    visitRef.on('value', s => { document.getElementById('total-views-count').innerText = (s.val() || 0).toLocaleString(); });
+    visitRef.on('value', s => { 
+        document.getElementById('total-views-count').innerText = (s.val() || 0).toLocaleString(); 
+    });
   </script>
 </body>
 </html>
