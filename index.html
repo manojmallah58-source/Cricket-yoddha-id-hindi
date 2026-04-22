@@ -11,14 +11,14 @@
   <style>
     :root { --gold: #FFD700; --bg: #000; --card: #0c0c0c; }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { margin: 0; background: var(--bg); font-family: 'Outfit', sans-serif; color: #fff; padding-bottom: 30px; }
+    body { margin: 0; background: var(--bg); font-family: 'Outfit', sans-serif; color: #fff; padding-bottom: 30px; overflow-x: hidden; }
 
     header { height: 60px; background: #000; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 1px solid rgba(255,215,0,0.2); position: sticky; top: 0; z-index: 1000; }
     .logo { font-family: 'Rajdhani'; font-size: 22px; font-weight: 800; }
     .logo span { color: var(--gold); }
 
     #main-stage { width: 100%; transition: 0.8s ease; }
-    .video-box { width: 100%; aspect-ratio: 16/9; background: #000; }
+    .video-box { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
     iframe { width: 100%; height: 100%; border: none; }
     .locked { filter: blur(35px) brightness(0.3); pointer-events: none; }
 
@@ -57,7 +57,9 @@
   </header>
 
   <div id="main-stage">
-    <div class="video-box"><iframe src="https://ipl1.pages.dev/4?id=1HD" allowfullscreen allow="autoplay"></iframe></div>
+    <div class="video-box">
+      <iframe src="https://ipl1.pages.dev/4?id=1HD" allowfullscreen="true" scrolling="no" allow="autoplay; encrypted-media"></iframe>
+    </div>
     <div class="ticker">
       <div class="ticker-text">
         🏏 WANT TO WATCH IPL & ALL CRICKET MATCHES LIVE? 🔗 JOIN OUR TELEGRAM CHANNEL FOR PREMIUM HD LINKS! 🔥 GET INSTANT ACCESS TO EVERY MATCH LINK IN ULTRA HD QUALITY ⚡ JOIN NOW TO NEVER MISS A BALL! 🏏
@@ -81,12 +83,12 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <script>
-    // --- SETTINGS ---
-    const DB_NAME = "cricket_yoddha_site1"; // <-- HAR WEBSITE PE YE NAAM ALAG RAKHO (e.g. site1, site2, site3)
+    // HAR WEBSITE KE LIYE DB_NAME BADAL DENA
+    const DB_NAME = "cricket_yoddha_site1"; 
 
     const CONFIG = {
-      key: "yoddha_daily_access",
-      timeKey: "yoddha_join_time",
+      key: "yoddha_daily_access_v12",
+      timeKey: "yoddha_join_time_v12",
       preview: 60000, 
       expiry: 86400000 
     };
@@ -120,7 +122,6 @@
       else alert("Link Copied!");
     }
 
-    // --- UPDATED FIREBASE LOGIC ---
     const firebaseConfig = {
       apiKey: "AIzaSyA-vR50CMDYJVHApJir-6fmgRqhFiqQDU8",
       authDomain: "my-website-cricket.firebaseapp.com",
@@ -131,10 +132,7 @@
     if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     const today = new Date().toISOString().slice(0, 10);
-    
-    // Ab ye har website ke liye alag path banayega
     const ref = db.ref('live_users/' + DB_NAME + '/' + today);
-    
     ref.transaction(v => (v || 0) + 1);
     ref.on('value', snap => {
       document.getElementById('live-count').innerText = (snap.val() || 0).toLocaleString();
