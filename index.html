@@ -3,278 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>CRICKET YODDHA - Premium Live</title>
+  <title>CRICKET YODDHA - VIP Live</title>
   
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Outfit:wght@400;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
   
   <style>
-    :root {
-      --bg-dark: #000000;
-      --gold-main: #FFD700;
-      --card-bg: #121212;
-      --border-color: rgba(255, 255, 255, 0.1);
-    }
+    :root { --gold: #FFD700; --bg: #000; --card: #0c0c0c; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body { margin: 0; background: var(--bg); font-family: 'Outfit', sans-serif; color: #fff; padding-bottom: 30px; }
 
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+    header { height: 60px; background: #000; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 1px solid rgba(255,215,0,0.2); position: sticky; top: 0; z-index: 1000; }
+    .logo { font-family: 'Rajdhani'; font-size: 22px; font-weight: 800; }
+    .logo span { color: var(--gold); }
+
+    #main-stage { width: 100%; transition: 0.8s ease; }
+    .video-box { width: 100%; aspect-ratio: 16/9; background: #000; }
+    iframe { width: 100%; height: 100%; border: none; }
+    .locked { filter: blur(35px) brightness(0.3); pointer-events: none; }
+
+    .ticker { background: #0c0c0c; padding: 12px 0; border-bottom: 1px solid rgba(255,215,0,0.1); overflow: hidden; display: flex; align-items: center; }
+    .ticker-text { white-space: nowrap; display: inline-block; animation: scroll 25s linear infinite; color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .overlay.active { display: flex; }
+    .modal { width: 100%; max-width: 340px; background: #111; border: 1px solid var(--gold); border-radius: 20px; padding: 35px 20px; text-align: center; }
+    .btn-join { display: block; width: 100%; padding: 16px; background: var(--gold); color: #000; text-decoration: none; font-weight: 800; border-radius: 10px; text-transform: uppercase; margin-top: 20px; }
+
+    .actions { padding: 20px 15px; }
+    .tg-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--gold); color: #000; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 800; font-family: 'Rajdhani'; font-size: 18px; margin-bottom: 15px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .small-btn { background: var(--card); border: 1px solid rgba(255,215,0,0.1); color: #fff; padding: 12px; border-radius: 10px; text-align: center; text-decoration: none; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
     
-    body {
-      background-color: var(--bg-dark);
-      font-family: 'Outfit', sans-serif;
-      color: #fff;
-      height: 100vh;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* POPUP STYLES */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.92);
-      z-index: 9999; display: none; align-items: center; justify-content: center;
-      backdrop-filter: blur(8px);
-    }
-    .modal-overlay.active { display: flex; }
-    .modal-box {
-      width: 85%; max-width: 320px; background: #111; border: 1px solid #333;
-      border-radius: 20px; padding: 25px; text-align: center;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-    }
-    .pop-icon { font-size: 50px; margin-bottom: 15px; display: block; }
-    .pop-title { font-family: 'Rajdhani'; color: var(--gold-main); font-size: 24px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; }
-    .pop-desc { font-size: 14px; color: #ccc; margin-bottom: 25px; line-height: 1.5; }
-    .pop-btn { display: block; width: 100%; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; font-size: 13px; font-family: 'Rajdhani'; transition: 0.3s; }
-    .pb-join { background: var(--gold-main); color: #000; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
-    .pb-close { background: transparent; color: #666; border: 1px solid #333; cursor: pointer; }
-
-    /* HEADER */
-    header {
-      height: 55px;
-      background: #000;
-      border-bottom: 1px solid var(--border-color);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 15px;
-    }
-    .menu-icon { font-size: 28px; color: #fff; cursor: pointer; }
-    .logo-text { font-family: 'Rajdhani'; font-weight: 800; font-size: 22px; color: #fff; letter-spacing: 1px; }
-    .logo-text span { color: var(--gold-main); }
-    
-    .header-live {
-      display: flex; align-items: center; gap: 5px;
-      background: rgba(255, 0, 0, 0.2); border: 1px solid rgba(255, 0, 0, 0.4);
-      padding: 3px 10px; border-radius: 20px;
-    }
-    .h-dot { width: 7px; height: 7px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 8px #ff0000; animation: blink 1.2s infinite; }
-    .h-text { font-size: 11px; font-weight: 800; color: #fff; font-family: 'Rajdhani'; }
-
-    /* VIDEO SECTION */
-    .video-container { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-
-    /* TICKER */
-    .ticker-wrap {
-      background: #000; height: 30px; overflow: hidden;
-      display: flex; align-items: center; border-bottom: 1px solid var(--border-color);
-    }
-    .ticker-text {
-      color: var(--gold-main); font-weight: 700; font-size: 12px;
-      white-space: nowrap; animation: scroll 18s linear infinite;
-      padding-left: 100%; text-transform: uppercase;
-    }
-    @keyframes scroll { 100% { transform: translateX(-100%); } }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-    /* MAIN CONTENT */
-    .main-content { padding: 15px; display: flex; flex-direction: column; gap: 12px; }
-
-    /* DAILY VIEWS */
-    .views-card {
-      background: #111; border: 1px solid #222;
-      padding: 12px 15px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .views-left { display: flex; align-items: center; gap: 10px; }
-    .views-left i { color: var(--gold-main); font-size: 20px; }
-    .views-left span { font-size: 12px; font-weight: 700; color: #aaa; text-transform: uppercase; }
-    .views-count { font-size: 20px; font-weight: 800; color: #fff; font-family: 'Rajdhani'; }
-
-    /* TELEGRAM BUTTON */
-    .btn-tg {
-      background: var(--gold-main); color: #000;
-      text-decoration: none; padding: 15px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .tg-content { display: flex; align-items: center; gap: 15px; }
-    .tg-icon { font-size: 28px; }
-    .tg-text h3 { font-size: 18px; font-weight: 800; font-family: 'Rajdhani'; text-transform: uppercase; line-height: 1; }
-    .tg-text p { font-size: 10px; font-weight: 700; text-transform: uppercase; opacity: 0.8; }
-
-    /* ACTION BUTTONS */
-    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .btn-small {
-      background: #111; border: 1px solid #222;
-      padding: 14px; border-radius: 12px; color: #fff;
-      text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;
-      font-weight: 800; font-size: 13px; text-transform: uppercase; font-family: 'Rajdhani';
-    }
-
-    /* PREMIUM CLUB CARD */
-    .premium-card {
-        border: 1px solid var(--gold-main);
-        border-radius: 15px; background: #000;
-        padding: 15px; text-align: center; margin-top: 5px;
-    }
-    .prem-tag { display: flex; align-items: center; justify-content: center; gap: 5px; margin-bottom: 5px; }
-    .prem-tag .dot { width: 6px; height: 6px; background: #00ff00; border-radius: 50%; }
-    .prem-tag span { font-size: 9px; font-weight: 700; color: #aaa; text-transform: uppercase; }
-    
-    .prem-title { font-size: 16px; font-weight: 900; color: #fff; text-transform: uppercase; margin-bottom: 2px; }
-    .prem-title span { color: var(--gold-main); }
-    .prem-subtitle { font-size: 9px; color: #777; margin-bottom: 12px; }
-
-    .rules-list { background: #0a0a0a; border-radius: 8px; padding: 5px 0; text-align: left; border: 1px solid #1a1a1a; margin-bottom: 15px; }
-    .rule-item { 
-        padding: 8px 12px; font-size: 9.5px; color: #ccc; 
-        border-bottom: 1px solid #1a1a1a; display: flex; align-items: center; gap: 5px;
-    }
-    .rule-item:last-child { border-bottom: none; }
-    .rule-item b { color: #fff; text-transform: uppercase; font-size: 9px; }
-
-    .prem-btn {
-        background: var(--gold-main); color: #000; font-weight: 900;
-        padding: 12px; border-radius: 8px; font-size: 11px;
-        text-transform: uppercase; display: block; text-decoration: none;
-    }
-    .prem-footer { font-size: 8px; color: #555; margin-top: 8px; }
-
-    /* SIDEBAR */
-    .sidebar { position: fixed; left: -250px; top: 0; width: 250px; height: 100%; background: #0a0a0a; z-index: 2000; transition: 0.3s; padding-top: 50px; border-right: 1px solid #222; }
-    .sidebar.open { left: 0; }
-    .sb-link { display: flex; align-items: center; gap: 12px; padding: 15px 20px; color: #ccc; text-decoration: none; border-bottom: 1px solid #111; font-size: 13px; font-weight: 600; text-transform: uppercase; }
-    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; display: none; }
-    .overlay.active { display: block; }
+    .stats { background: var(--card); border: 1px solid rgba(255,215,0,0.1); border-radius: 15px; padding: 20px; margin-top: 20px; text-align: center; }
+    .count { font-family: 'Rajdhani'; font-size: 32px; color: var(--gold); font-weight: 800; }
   </style>
 </head>
 <body>
 
-  <!-- POPUP (10 SECOND DELAY) -->
-  <div class="modal-overlay" id="popup">
-    <div class="modal-box">
-      <span class="pop-icon">🏆</span>
-      <h2 class="pop-title">Join Telegram</h2>
-      <p class="pop-desc">Join our Telegram channel for backup links & instant match updates.</p>
-      <a href="#" class="pop-btn pb-join link-tg">Join Channel Now</a>
-      <button class="pop-btn pb-close" onclick="closePopup()">I'll join later</button>
+  <div class="overlay" id="forcePop">
+    <div class="modal">
+      <div style="font-size: 45px;">🔐</div>
+      <h2 style="font-family:'Rajdhani';">DAILY ACCESS EXPIRED</h2>
+      <p style="color:#888; font-size:14px;">To maintain server quality, please re-verify your access by joining our Telegram channel for the next 24 hours.</p>
+      <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" onclick="verifyAccess()" class="btn-join">JOIN & UNLOCK HD STREAM</a>
     </div>
   </div>
 
   <header>
-    <i class="material-icons menu-icon" onclick="toggleMenu()">menu</i>
-    <div class="logo-text">CRICKET <span>YODDHA</span></div>
-    <div class="header-live"><div class="h-dot"></div> <span class="h-text">LIVE</span></div>
+    <div class="logo">CRICKET<span>YODDHA</span></div>
+    <div style="font-size:10px; color:var(--gold); border:1px solid var(--gold); padding:2px 8px; border-radius:4px;">ULTRA HD</div>
   </header>
 
-  <div class="sidebar" id="sidebar">
-    <a href="#" class="sb-link link-tg"><i class="material-icons">send</i> Telegram Channel</a>
-    <a href="javascript:location.reload()" class="sb-link"><i class="material-icons">refresh</i> Refresh Page</a>
-    <a href="javascript:sharePage()" class="sb-link"><i class="material-icons">share</i> Share App</a>
-  </div>
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-  <div class="video-container">
-    <iframe src="https://ipl1.pages.dev/4?id=1HD" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe>
-  </div>
-
-  <div class="ticker-wrap">
-    <div class="ticker-text">CRICKET YODDHA 🏏 | JOIN TELEGRAM FOR HD BACKUP LINKS 🔗 | NO BUFFERING 🔥 | JOIN OUR PREMIUM WINNING CLUB 🏆</div>
-  </div>
-
-  <div class="main-content">
-    
-    <div class="views-card">
-      <div class="views-left"><i class="material-icons">bar_chart</i><span>Daily Views</span></div>
-      <div class="views-count" id="total-views-count">...</div>
-    </div>
-
-    <a href="#" class="btn-tg link-tg">
-      <div class="tg-content">
-        <div class="tg-icon"><i class="material-icons">send</i></div>
-        <div class="tg-text"><h3>Join Telegram</h3><p>Link Backups & Updates</p></div>
+  <div id="main-stage">
+    <div class="video-box"><iframe src="https://joplay.lrl45.workers.dev/1108" allowfullscreen allow="autoplay"></iframe></div>
+    <div class="ticker">
+      <div class="ticker-text">
+        🏏 WANT TO WATCH IPL & ALL CRICKET MATCHES LIVE? 🔗 JOIN OUR TELEGRAM CHANNEL FOR PREMIUM HD LINKS! 🔥 GET INSTANT ACCESS TO EVERY MATCH LINK IN ULTRA HD QUALITY ⚡ JOIN NOW TO NEVER MISS A BALL! 🏏
       </div>
-      <i class="material-icons">chevron_right</i>
-    </a>
-
-    <div class="btn-grid">
-      <a href="javascript:sharePage()" class="btn-small"><i class="material-icons">share</i> Share</a>
-      <a href="javascript:location.reload()" class="btn-small"><i class="material-icons">refresh</i> Refresh</a>
     </div>
-
-    <div class="premium-card">
-        <div class="prem-tag"><div class="dot"></div><span>Verified Private Contest</span></div>
-        <h2 class="prem-title">Join Our <span>Premium Winning Club</span> 🏆</h2>
-        <p class="prem-subtitle">Safe & Secure Dream11 Private Matches | Daily Payouts</p>
-        
-        <div class="rules-list">
-            <div class="rule-item">📋 <b>How to Join:</b> Pay Entry → Send Screenshot → Get Code</div>
-            <div class="rule-item">⏰ <b>Deadline:</b> Strictly 1 Hour Before Match Starts</div>
-            <div class="rule-item">🆔 <b>Verification:</b> Dream11 User ID Required for Payout</div>
-            <div class="rule-item">💰 <b>Instant Payout:</b> Winners Paid Next Day @ 10:00 AM</div>
-        </div>
-
-        <a href="https://t.me/Manoj_expert" target="_blank" class="prem-btn">Message Admin To Join Now</a>
-        <p class="prem-footer">Click here to start chat with Verified Admin</p>
-    </div>
-
   </div>
 
-  <!-- FIREBASE & LOGIC -->
+  <div class="actions">
+    <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="tg-btn"><i class="material-icons">send</i> JOIN TELEGRAM</a>
+    <div class="grid">
+      <a href="javascript:location.reload()" class="small-btn"><i class="material-icons" style="font-size:18px;color:gold">refresh</i> REFRESH</a>
+      <a href="javascript:shareLink()" class="small-btn"><i class="material-icons" style="font-size:18px;color:gold">share</i> SHARE</a>
+    </div>
+    <div class="stats">
+      <div style="font-size:11px; color:#555; letter-spacing:1px; margin-bottom:5px;">LIVE SPECTATORS</div>
+      <div class="count" id="live-count">...</div>
+    </div>
+  </div>
+
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <script>
-    const WEBSITE_ID = "yoddha_final_hindi";
-    const TELEGRAM_LINK = "https://t.me/+rwZKMV0-L8wyOTll";
-    document.querySelectorAll('.link-tg').forEach(el => el.href = TELEGRAM_LINK);
+    // --- SETTINGS ---
+    const DB_NAME = "cricket_yoddha_site1"; // <-- HAR WEBSITE PE YE NAAM ALAG RAKHO (e.g. site1, site2, site3)
 
-    function toggleMenu() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('active');
-    }
-
-    // Popup Logic (10 Second Delay)
-    function closePopup() {
-      document.getElementById('popup').classList.remove('active');
-    }
-
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById('popup').classList.add('active');
-      }, 10000); // 10000ms = 10 Seconds
+    const CONFIG = {
+      key: "yoddha_daily_access",
+      timeKey: "yoddha_join_time",
+      preview: 60000, 
+      expiry: 86400000 
     };
 
-    async function sharePage() {
-      if(navigator.share) await navigator.share({title:'Live Cricket', url: window.location.href});
+    window.onload = () => {
+      const lastJoin = localStorage.getItem(CONFIG.timeKey);
+      const now = new Date().getTime();
+
+      if (lastJoin && (now - lastJoin > CONFIG.expiry)) {
+        localStorage.removeItem(CONFIG.key);
+        localStorage.removeItem(CONFIG.timeKey);
+      }
+
+      if (localStorage.getItem(CONFIG.key) !== 'true') {
+        setTimeout(() => {
+          document.getElementById('main-stage').classList.add('locked');
+          document.getElementById('forcePop').classList.add('active');
+        }, CONFIG.preview);
+      }
+    };
+
+    function verifyAccess() {
+      localStorage.setItem(CONFIG.key, 'true');
+      localStorage.setItem(CONFIG.timeKey, new Date().getTime());
+      document.getElementById('forcePop').classList.remove('active');
+      document.getElementById('main-stage').classList.remove('locked');
+    }
+
+    function shareLink() {
+      if (navigator.share) navigator.share({title:'Cricket Yoddha', url:window.location.href});
       else alert("Link Copied!");
     }
 
-    // Firebase Config
+    // --- UPDATED FIREBASE LOGIC ---
     const firebaseConfig = {
       apiKey: "AIzaSyA-vR50CMDYJVHApJir-6fmgRqhFiqQDU8",
       authDomain: "my-website-cricket.firebaseapp.com",
       databaseURL: "https://my-website-cricket-default-rtdb.firebaseio.com",
       projectId: "my-website-cricket",
-      storageBucket: "my-website-cricket.appspot.com",
-      messagingSenderId: "664276981494",
-      appId: "1:664276981494:web:4d6b5cd5c55f6b6b18fed7"
     };
 
     if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    const todayStr = new Date().toISOString().slice(0, 10); 
-    const visitRef = db.ref('daily_stats_eng/' + WEBSITE_ID + '/' + todayStr);
-    visitRef.transaction(c => (c || 0) + 1);
-    visitRef.on('value', s => { 
-        document.getElementById('total-views-count').innerText = (s.val() || 0).toLocaleString(); 
+    const today = new Date().toISOString().slice(0, 10);
+    
+    // Ab ye har website ke liye alag path banayega
+    const ref = db.ref('live_users/' + DB_NAME + '/' + today);
+    
+    ref.transaction(v => (v || 0) + 1);
+    ref.on('value', snap => {
+      document.getElementById('live-count').innerText = (snap.val() || 0).toLocaleString();
     });
   </script>
 </body>
