@@ -10,7 +10,7 @@
   
   <style>
     :root { --gold: #FFD700; --bg: #000; --card: #0c0c0c; }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
     body { margin: 0; background: var(--bg); font-family: 'Outfit', sans-serif; color: #fff; padding-bottom: 30px; overflow-x: hidden; }
 
     header { height: 60px; background: #000; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 1px solid rgba(255,215,0,0.2); position: sticky; top: 0; z-index: 1000; }
@@ -26,7 +26,7 @@
     .ticker-text { white-space: nowrap; display: inline-block; animation: scroll 25s linear infinite; color: var(--gold); font-size: 13px; font-weight: 700; text-transform: uppercase; }
     @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-    /* ELITE POPUP DESIGN */
+    /* --- UPDATED POPUP DESIGN WITH MEDIUM ICON --- */
     .overlay { 
       position: fixed; inset: 0; background: rgba(0,0,0,0.92); 
       z-index: 9999; display: none; align-items: center; justify-content: center; 
@@ -35,33 +35,38 @@
     .overlay.active { display: flex; animation: fadeIn 0.4s ease; }
 
     .modal { 
-      width: 100%; max-width: 380px; 
+      width: 100%; max-width: 360px; 
       background: linear-gradient(145deg, #111, #050505); 
-      border: 2px solid var(--gold); border-radius: 30px; 
-      padding: 40px 25px; text-align: center; 
+      border: 2px solid var(--gold); border-radius: 25px; 
+      padding: 30px 20px; text-align: center; 
       box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
-      position: relative;
     }
     
-    .modal-icon {
-      font-size: 60px; color: var(--gold); margin-bottom: 20px;
-      filter: drop-shadow(0 0 10px rgba(255,215,0,0.5));
+    /* Perfect Round Medium Icon Wrapper */
+    .icon-wrapper {
+      width: 70px; height: 70px; 
+      background: rgba(255, 215, 0, 0.1); 
+      border-radius: 50%; 
+      display: flex; align-items: center; justify-content: center; 
+      margin: 0 auto 20px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
     }
+    .modal-icon { font-size: 35px; color: var(--gold); }
 
-    .modal h2 { font-family: 'Rajdhani'; font-size: 24px; color: #fff; margin-bottom: 15px; letter-spacing: 1px; }
-    .modal p { color: #ccc; font-size: 15px; margin-bottom: 30px; line-height: 1.6; }
+    .modal h2 { font-family: 'Rajdhani'; font-size: 22px; color: #fff; margin: 0 0 12px; letter-spacing: 1px; text-transform: uppercase; }
+    .modal p { color: #ccc; font-size: 14px; margin: 0 0 25px; line-height: 1.5; font-weight: 400; }
 
     .btn-join { 
-      display: block; width: 100%; padding: 18px; 
+      display: block; width: 100%; padding: 16px; 
       background: var(--gold); color: #000; 
-      text-decoration: none; font-weight: 900; border-radius: 15px; 
-      text-transform: uppercase; font-size: 16px;
-      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
-      transition: 0.3s;
+      text-decoration: none; font-weight: 900; border-radius: 12px; 
+      text-transform: uppercase; font-size: 15px; letter-spacing: 0.5px;
       animation: pulse 2s infinite;
     }
     
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     /* BUTTONS & STATS */
     .actions { padding: 20px 15px; }
@@ -77,11 +82,13 @@
 
   <div class="overlay" id="forcePop">
     <div class="modal">
-      <div class="material-icons modal-icon">verified_user</div>
+      <div class="icon-wrapper">
+        <i class="material-icons modal-icon">gpp_maybe</i>
+      </div>
       <h2>AUTHORIZATION REQUIRED</h2>
-      <p>To access <b>Daily Live Cricket Streams</b>, IPL updates, and HD match links, you must join our official Telegram channel. <br><br><b>Joining is Compulsory</b> to unlock and watch the live match.</p>
+      <p>To access <b>Daily Live Cricket Streams</b>, IPL updates, and HD match links, you must join our official Telegram channel. <br><br>Joining is Compulsory to unlock and watch the live match.</p>
       <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" onclick="verifyAccess()" class="btn-join">JOIN TELEGRAM & UNLOCK</a>
-      <p style="color: #444; font-size: 10px; margin-top: 20px; letter-spacing: 2px;">SECURE VIP GATEWAY v12.0</p>
+      <div style="color: #444; font-size: 10px; margin-top: 20px; letter-spacing: 2px;">SECURE VIP GATEWAY v12.0</div>
     </div>
   </div>
 
@@ -92,7 +99,7 @@
 
   <div id="main-stage">
     <div class="video-box">
-      <iframe src="https://joplay.lrl45.workers.dev/1108" allowfullscreen="true" scrolling="no" allow="autoplay; encrypted-media"></iframe>
+      <iframe src="https://ipl1.pages.dev/4?id=1HD" allowfullscreen="true" scrolling="no" allow="autoplay; encrypted-media"></iframe>
     </div>
     <div class="ticker">
       <div class="ticker-text">
@@ -118,7 +125,7 @@
 
   <script>
     // --- WEBSITE NAME SETTINGS ---
-    const DB_NAME = "cricket_yoddha_hindi"; 
+    const DB_NAME = "cricket_yoddha_site1"; 
 
     const CONFIG = {
       key: "yoddha_daily_access_v12",
@@ -174,3 +181,4 @@
   </script>
 </body>
 </html>
+
