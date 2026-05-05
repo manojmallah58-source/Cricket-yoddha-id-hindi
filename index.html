@@ -1,141 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Sports 1 HD Hindi</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.ui.min.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/controls.min.css" crossorigin="anonymous">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
-            background: #000;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-        .shaka-video-container {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-        }
-        video {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            object-fit: contain;
-        }
-        .shaka-spinner-container,
-        .shaka-spinner,
-        .shaka-spinner-svg {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>CRICKET YODDHA - Elite Streaming</title>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root { --gold: #FFD700; --bg: #000; --card: #0c0c0c; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+    body { margin: 0; background: var(--bg); font-family: 'Outfit', sans-serif; color: #fff; padding-bottom: 30px; overflow-x: hidden; }
+
+    header { height: 60px; background: #000; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 1px solid rgba(255,215,0,0.2); position: sticky; top: 0; z-index: 1000; }
+    .logo { font-family: 'Rajdhani'; font-size: 22px; font-weight: 800; }
+    .logo span { color: var(--gold); }
+
+    #main-stage { width: 100%; transition: 0.8s ease; }
+    .video-box { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
+    iframe { width: 100%; height: 100%; border: none; }
+    .locked { filter: blur(40px) brightness(0.2); pointer-events: none; }
+
+    .ticker { background: #0c0c0c; padding: 12px 0; border-bottom: 1px solid rgba(255,215,0,0.1); overflow: hidden; display: flex; align-items: center; }
+    .ticker-text { white-space: nowrap; display: inline-block; animation: scroll 25s linear infinite; color: var(--gold); font-size: 13px; font-weight: 700; text-transform: uppercase; }
+    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+    /* --- UPDATED POPUP DESIGN WITH MEDIUM ICON --- */
+    .overlay { 
+      position: fixed; inset: 0; background: rgba(0,0,0,0.92); 
+      z-index: 9999; display: none; align-items: center; justify-content: center; 
+      padding: 20px; backdrop-filter: blur(15px);
+    }
+    .overlay.active { display: flex; animation: fadeIn 0.4s ease; }
+
+    .modal { 
+      width: 100%; max-width: 360px; 
+      background: linear-gradient(145deg, #111, #050505); 
+      border: 2px solid var(--gold); border-radius: 25px; 
+      padding: 30px 20px; text-align: center; 
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+    }
+    
+    /* Perfect Round Medium Icon Wrapper */
+    .icon-wrapper {
+      width: 70px; height: 70px; 
+      background: rgba(255, 215, 0, 0.1); 
+      border-radius: 50%; 
+      display: flex; align-items: center; justify-content: center; 
+      margin: 0 auto 20px;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    }
+    .modal-icon { font-size: 35px; color: var(--gold); }
+
+    .modal h2 { font-family: 'Rajdhani'; font-size: 22px; color: #fff; margin: 0 0 12px; letter-spacing: 1px; text-transform: uppercase; }
+    .modal p { color: #ccc; font-size: 14px; margin: 0 0 25px; line-height: 1.5; font-weight: 400; }
+
+    .btn-join { 
+      display: block; width: 100%; padding: 16px; 
+      background: var(--gold); color: #000; 
+      text-decoration: none; font-weight: 900; border-radius: 12px; 
+      text-transform: uppercase; font-size: 15px; letter-spacing: 0.5px;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* BUTTONS & STATS */
+    .actions { padding: 20px 15px; }
+    .tg-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--gold); color: #000; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 800; font-family: 'Rajdhani'; font-size: 18px; margin-bottom: 15px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .small-btn { background: var(--card); border: 1px solid rgba(255,215,0,0.1); color: #fff; padding: 12px; border-radius: 10px; text-align: center; text-decoration: none; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    
+    .stats { background: var(--card); border: 1px solid rgba(255,215,0,0.1); border-radius: 15px; padding: 20px; margin-top: 20px; text-align: center; }
+    .count { font-family: 'Rajdhani'; font-size: 32px; color: var(--gold); font-weight: 800; }
+  </style>
 </head>
 <body>
-    <div class="shaka-video-container" data-shaka-player>
-        <video autoplay playsinline preload="metadata" poster=""></video>
+
+  <div class="overlay" id="forcePop">
+    <div class="modal">
+      <div class="icon-wrapper">
+        <i class="material-icons modal-icon">gpp_maybe</i>
+      </div>
+      <h2>AUTHORIZATION REQUIRED</h2>
+      <p>To access <b>Daily Live Cricket Streams</b>, IPL updates, and HD match links, you must join our official Telegram channel. <br><br>Joining is Compulsory to unlock and watch the live match.</p>
+      <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" onclick="verifyAccess()" class="btn-join">JOIN TELEGRAM & UNLOCK</a>
+      <div style="color: #444; font-size: 10px; margin-top: 20px; letter-spacing: 2px;">SECURE VIP GATEWAY v12.0</div>
     </div>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            shaka.polyfill.installAll();
+  <header>
+    <div class="logo">CRICKET<span>YODDHA</span></div>
+    <div style="font-size:10px; color:var(--gold); border:1px solid var(--gold); padding:2px 8px; border-radius:4px;">ULTRA HD</div>
+  </header>
 
-            if (!shaka.Player.isBrowserSupported()) {
-                console.error('Browser not supported');
-                return;
-            }
+  <div id="main-stage">
+    <div class="video-box">
+      <iframe src="https://cricket-yoddha-channel-1.vercel.app/" allowfullscreen="true" scrolling="no" allow="autoplay; encrypted-media"></iframe>
+    </div>
+    <div class="ticker">
+      <div class="ticker-text">
+        🏏 WANT TO WATCH IPL & ALL CRICKET MATCHES LIVE? 🔗 JOIN OUR TELEGRAM CHANNEL FOR PREMIUM HD LINKS! 🔥 GET INSTANT ACCESS TO EVERY MATCH LINK IN ULTRA HD QUALITY ⚡ JOIN NOW TO NEVER MISS A BALL! 🏏
+      </div>
+    </div>
+  </div>
 
-            const video = document.querySelector('video');
-            const player = new shaka.Player();
-            await player.attach(video);
+  <div class="actions">
+    <a href="https://t.me/+rwZKMV0-L8wyOTll" target="_blank" class="tg-btn"><i class="material-icons">send</i> JOIN TELEGRAM</a>
+    <div class="grid">
+      <a href="javascript:location.reload()" class="small-btn"><i class="material-icons" style="font-size:18px;color:gold">refresh</i> REFRESH</a>
+      <a href="javascript:shareLink()" class="small-btn"><i class="material-icons" style="font-size:18px;color:gold">share</i> SHARE</a>
+    </div>
+    <div class="stats">
+      <div style="font-size:11px; color:#555; letter-spacing:1px; margin-bottom:5px;">LIVE SPECTATORS</div>
+      <div class="count" id="live-count">...</div>
+    </div>
+  </div>
 
-            const container = document.querySelector('.shaka-video-container');
-            const ui = new shaka.ui.Overlay(player, container, video);
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-            ui.configure({
-                controlPanelElements: [
-                    'play_pause', 'time_and_duration', 'mute', 'volume',
-                    'spacer', 'language', 'captions', 'picture_in_picture',
-                    'quality', 'fullscreen'
-                ],
-                volumeBarColors: { base: 'purple', level: 'purple' },
-                seekBarColors: { base: 'white', buffered: 'red', played: 'blue' }
-            });
+  <script>
+    // --- WEBSITE NAME SETTINGS ---
+    const DB_NAME = "cricket_yoddha_hindi"; 
 
-            // Updated DRM Keys
-            let drmConfig = {
-                clearKeys: {
-                    "400131994b445d8c8817202248760fda": "2d56cb6f07a75b9aff165d534ae2bfc4"
-                }
-            };
+    const CONFIG = {
+      key: "yoddha_daily_access_v12",
+      timeKey: "yoddha_join_time_v12",
+      preview: 60000, // 1 minute
+      expiry: 86400000 // 24 Hours
+    };
 
-            // Updated Stream URL & Token
-            let streamUrl = "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1777984235~exp=1778005835~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=e855217d7aea1d444dcbd4db59b0a6557a310ad2415ae71782861bd89398d746";
-            
-            // Extracting token for headers
-            let cookieHeader = streamUrl.split('?')[1];
+    window.onload = () => {
+      const lastJoin = localStorage.getItem(CONFIG.timeKey);
+      const now = new Date().getTime();
 
-            player.configure({
-                drm: drmConfig,
-                streaming: {
-                    lowLatencyMode: true,
-                    bufferingGoal: 15,
-                    rebufferingGoal: 2,
-                    bufferBehind: 15,
-                    retryParameters: { timeout: 10000, maxAttempts: 5, baseDelay: 300, backoffFactor: 1.2 },
-                    segmentRequestTimeout: 8000,
-                    segmentPrefetchLimit: 2,
-                    useNativeHlsOnSafari: true
-                },
-                manifest: {
-                    retryParameters: { timeout: 8000, maxAttempts: 3 }
-                }
-            });
+      if (lastJoin && (now - lastJoin > CONFIG.expiry)) {
+        localStorage.removeItem(CONFIG.key);
+        localStorage.removeItem(CONFIG.timeKey);
+      }
 
-            player.getNetworkingEngine().registerRequestFilter((type, request) => {
-                request.headers['Referer'] = 'https://www.jiotv.com/';
-                request.headers['User-Agent'] = "plaYtv/7.1.5 (Linux;Android 13) ExoPlayerLib/2.11.6";
-                
-                // Adding token to segments if not present
-                if ((type === shaka.net.NetworkingEngine.RequestType.MANIFEST || 
-                     type === shaka.net.NetworkingEngine.RequestType.SEGMENT) && 
-                     request.uris[0] && !request.uris[0].includes('__hdnea=')) {
-                    const separator = request.uris[0].includes('?') ? '&' : '?';
-                    request.uris[0] += separator + cookieHeader;
-                }
-            });
+      if (localStorage.getItem(CONFIG.key) !== 'true') {
+        setTimeout(() => {
+          document.getElementById('main-stage').classList.add('locked');
+          document.getElementById('forcePop').classList.add('active');
+        }, CONFIG.preview);
+      }
+    };
 
-            const attemptAutoplay = async () => {
-                try {
-                    video.muted = false;
-                    await video.play();
-                } catch (error) {
-                    video.muted = true;
-                    await video.play();
-                }
-            };
+    function verifyAccess() {
+      localStorage.setItem(CONFIG.key, 'true');
+      localStorage.setItem(CONFIG.timeKey, new Date().getTime());
+      document.getElementById('forcePop').classList.remove('active');
+      document.getElementById('main-stage').classList.remove('locked');
+    }
 
-            player.addEventListener('error', (event) => console.error('Error:', event.detail));
+    function shareLink() {
+      if (navigator.share) navigator.share({title:'Cricket Yoddha', url:window.location.href});
+      else alert("Link Copied!");
+    }
 
-            try {
-                await player.load(streamUrl);
-                if (video.readyState >= 3) {
-                    await attemptAutoplay();
-                } else {
-                    video.addEventListener('canplay', attemptAutoplay, { once: true });
-                }
-            } catch (error) {
-                console.error('Load error:', error);
-            }
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-vR50CMDYJVHApJir-6fmgRqhFiqQDU8",
+      authDomain: "my-website-cricket.firebaseapp.com",
+      databaseURL: "https://my-website-cricket-default-rtdb.firebaseio.com",
+      projectId: "my-website-cricket",
+    };
 
-            // Unmute on first click
-            document.addEventListener('click', () => { if(video.muted) video.muted = false; }, { once: true });
-        });
-    </script>
+    if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const today = new Date().toISOString().slice(0, 10);
+    const ref = db.ref('live_users/' + DB_NAME + '/' + today);
+    ref.transaction(v => (v || 0) + 1);
+    ref.on('value', snap => {
+      document.getElementById('live-count').innerText = (snap.val() || 0).toLocaleString();
+    });
+  </script>
 </body>
 </html>
